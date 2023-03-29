@@ -53,6 +53,8 @@
         const drawCtx = drawCanvas.getContext('2d');
         const brushSizeInput = document.getElementById('brushSize');
         const undoButton = document.getElementById('undo');
+        const brushColor = "rgba(255, 102, 102, 0.5)";
+        const brushAlpha = 0.5;
 
         const image = new Image();
         image.src = "{{ url_for('serve_image', filename=filename) }}";
@@ -136,28 +138,46 @@
         }
 
         function prepareCanvasForExport(canvas) {
-            const exportCanvas = document.createElement('canvas');
-            exportCanvas.width = canvas.width;
-            exportCanvas.height = canvas.height;
-            const exportCtx = exportCanvas.getContext('2d');
+    const exportCanvas = document.createElement('canvas');
+    exportCanvas.width = canvas.width;
+    exportCanvas.height = canvas.height;
+    const exportCtx = exportCanvas.getContext('2d');
 
-            // Fill the background with black color
-            exportCtx.fillStyle = 'black';
-            exportCtx.fillRect(0, 0, exportCanvas.width, exportCanvas.height);
+    // Draw the original canvas content onto the exportCanvas
+    exportCtx.drawImage(canvas, 0, 0);
 
-            // Draw the original canvas content with inverted colors
-            exportCtx.globalCompositeOperation = 'xor';
-            exportCtx.drawImage(canvas, 0, 0);
+    // Create an ImageData object from the exportCanvas
+    const imageData = exportCtx.getImageData(0, 0, exportCanvas.width, exportCanvas.height);
+    const data = imageData.data;
 
-            return exportCanvas;
+    // Iterate through the pixel data and set the mask colors
+    for (let i = 0; i < data.length; i += 4) {
+        // If the pixel is black (brush color), set it to white
+        if (data[i] === 0 && data[i + 1] === 0 && data[i + 2] === 0) {
+            data[i] = 255;     // Red channel
+            data[i + 1] = 255; // Green channel
+            data[i + 2] = 255; // Blue channel
+        } else {
+            // If the pixel is not black, set it to black
+            data[i] = 0;       // Red channel
+            data[i + 1] = 0;   // Green channel
+            data[i + 2] = 0;   // Blue channel
         }
+    }
+
+    // Put the modified ImageData back onto the exportCanvas
+    exportCtx.putImageData(imageData, 0, 0);
+
+    return exportCanvas;
+}
+
 
         const exportPNGButton = document.getElementById('exportPNG');
 
         exportPNGButton.addEventListener('click', function () {
             saveImage(imageCanvas, 'image/png', 'original_image.png');
             const preparedCanvas = prepareCanvasForExport(drawCanvas);
-            saveImage(preparedCanvas, 'image/png', 'canvas_drawing.png');
+            saveImage(preparedCanvas, 'image/png', 'original_image_mask.png');
         });
 
         </script>
