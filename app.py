@@ -1,16 +1,20 @@
 import os
 import base64
-from flask import Flask, render_template, request, redirect, url_for, send_from_directory
+from flask import Flask, render_template, request, redirect, url_for, send_from_directory, send_file
 from flask_uploads import UploadSet, configure_uploads, ALL
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = 'data/exported'
+app.config['EXPORT_FOLDER'] = 'exported'
+app.config['UPLOADED_PHOTOS_DEST'] = 'uploads'
 
 # Configure file uploads
 photos = UploadSet('photos', ALL)
-app.config['UPLOADED_PHOTOS_DEST'] = 'uploads'
 configure_uploads(app, photos)
+
+@app.route('/static/<path:filename>')
+def serve_static(filename):
+    return send_from_directory('static', filename)
 
 @app.route('/')
 def index():
@@ -48,7 +52,7 @@ def export():
     # Decode and save the image
     img_data = img_data.split(',')[1]
     img_data = base64.b64decode(img_data)
-    img_path = os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(img_name))
+    img_path = os.path.join(app.config['EXPORT_FOLDER'], secure_filename(img_name))
 
     with open(img_path, 'wb') as f:
         f.write(img_data)

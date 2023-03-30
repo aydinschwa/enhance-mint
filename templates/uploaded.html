@@ -4,183 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Uploaded Image</title>
-    <style>
-        #canvasContainer {
-            position: relative;
-            display: inline-block;
-            height: 300px;
-        }
-        canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-        .controls {
-            display: block;
-            margin-top: 10px;
-        }
-        label {
-            font-size: 18px;
-            display: inline-block;
-            margin-bottom: 5px;
-        }
-        input[type="range"] {
-            display: inline-block;
-            width: 300px;
-            margin-bottom: 10px;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('serve_static', filename='css/styles.css') }}">
 </head>
 <body>
-    <h1>Uploaded Image</h1>
-    <div id="canvasContainer">
-        <canvas id="imageCanvas"></canvas>
-        <canvas id="drawCanvas"></canvas>
+    <div class="content-wrapper">
+        <h1>Uploaded Image</h1>
+        <div id="canvasContainer" data-image-url="{{ url_for('serve_image', filename=filename) }}">
+            <canvas id="imageCanvas"></canvas>
+            <canvas id="drawCanvas"></canvas>
+        </div>
+        <div class="controls">
+            <label for="brushSize">Brush size: </label>
+            <input type="range" id="brushSize" name="brushSize" min="1" max="50" value="5">
+            <button id="undo">Undo</button>
+            <button id="exportPNG">Export as PNG</button>
+        </div>
     </div>
-    <div class="controls">
-        <label for="brushSize">Brush size: </label>
-        <input type="range" id="brushSize" name="brushSize" min="1" max="50" value="5">
-        <button id="undo">Undo</button>
-        <button id="exportPNG">Export as PNG</button>
-    </div>
-    <br>
-    <a href="{{ url_for('index') }}">Upload another image</a>
+    <a href="{{ url_for('index') }}" class="upload-another-image">Upload another image</a>
 
-    <script>
-        const imageCanvas = document.getElementById('imageCanvas');
-        const drawCanvas = document.getElementById('drawCanvas');
-        const imageCtx = imageCanvas.getContext('2d');
-        const drawCtx = drawCanvas.getContext('2d');
-        const brushSizeInput = document.getElementById('brushSize');
-        const undoButton = document.getElementById('undo');
-        const brushColor = "rgba(255, 102, 102, 0.5)";
-        const brushAlpha = 0.5;
-
-        const image = new Image();
-        image.src = "{{ url_for('serve_image', filename=filename) }}";
-        image.onload = function () {
-            imageCanvas.width = image.width;
-            imageCanvas.height = image.height;
-            drawCanvas.width = image.width;
-            drawCanvas.height = image.height;
-            imageCtx.drawImage(image, 0, 0);
-        };
-
-        let drawing = false;
-        let paths = [];
-        let currentPath = [];
-
-        drawCanvas.addEventListener('mousedown', function (event) {
-            drawing = true;
-            drawCtx.lineWidth = brushSizeInput.value;
-            drawCtx.beginPath();
-            const xPos = event.clientX - drawCanvas.getBoundingClientRect().left;
-            const yPos = event.clientY - drawCanvas.getBoundingClientRect().top;
-            drawCtx.moveTo(xPos, yPos);
-            currentPath.push({ x: xPos, y: yPos, size: drawCtx.lineWidth });
-        });
-
-        drawCanvas.addEventListener('mousemove', function (event) {
-            if (!drawing) return;
-            const xPos = event.clientX - drawCanvas.getBoundingClientRect().left;
-            const yPos = event.clientY - drawCanvas.getBoundingClientRect().top;
-            drawCtx.lineWidth = brushSizeInput.value;
-            drawCtx.lineTo(xPos, yPos);
-            drawCtx.stroke();
-            currentPath.push({ x: xPos, y: yPos, size: drawCtx.lineWidth });
-        });
-
-        drawCanvas.addEventListener('mouseup', function () {
-            if (drawing) {
-                paths.push(currentPath);
-                currentPath = [];
-            }
-            drawing = false;
-        });
-
-        drawCanvas.addEventListener('mouseout', function () {
-            drawing = false;
-        });
-
-        undoButton.addEventListener('click', function () {
-            paths.pop();
-            redraw();
-        });
-
-        brushSizeInput.addEventListener('input', function () {
-        drawCtx.lineWidth = brushSizeInput.value;
-        });
-
-        function redraw() {
-            drawCtx.clearRect(0, 0, drawCanvas.width, drawCanvas.height);
-            drawCtx.lineCap = 'round';
-
-            for (const path of paths) {
-                drawCtx.beginPath();
-                const startPoint = path[0];
-                drawCtx.moveTo(startPoint.x, startPoint.y);
-                drawCtx.lineWidth = startPoint.size;
-
-                for (const point of path.slice(1)) {
-                    drawCtx.lineTo(point.x, point.y);
-                    drawCtx.lineWidth = point.size;
-                    drawCtx.stroke();
-                }
-            }
-        }
-
-        function saveImage(canvas, imgType, imgName) {
-            const imageData = canvas.toDataURL(imgType);
-            const xhr = new XMLHttpRequest();
-            xhr.open('POST', '/export', true);
-            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-            xhr.send('imgData=' + encodeURIComponent(imageData) + '&imgType=' + encodeURIComponent(imgType) + '&imgName=' + encodeURIComponent(imgName));
-        }
-
-        function prepareCanvasForExport(canvas) {
-    const exportCanvas = document.createElement('canvas');
-    exportCanvas.width = canvas.width;
-    exportCanvas.height = canvas.height;
-    const exportCtx = exportCanvas.getContext('2d');
-
-    // Draw the original canvas content onto the exportCanvas
-    exportCtx.drawImage(canvas, 0, 0);
-
-    // Create an ImageData object from the exportCanvas
-    const imageData = exportCtx.getImageData(0, 0, exportCanvas.width, exportCanvas.height);
-    const data = imageData.data;
-
-    // Iterate through the pixel data and set the mask colors
-    for (let i = 0; i < data.length; i += 4) {
-        // If the pixel is black (brush color), set it to white
-        if (data[i] === 0 && data[i + 1] === 0 && data[i + 2] === 0) {
-            data[i] = 255;     // Red channel
-            data[i + 1] = 255; // Green channel
-            data[i + 2] = 255; // Blue channel
-        } else {
-            // If the pixel is not black, set it to black
-            data[i] = 0;       // Red channel
-            data[i + 1] = 0;   // Green channel
-            data[i + 2] = 0;   // Blue channel
-        }
-    }
-
-    // Put the modified ImageData back onto the exportCanvas
-    exportCtx.putImageData(imageData, 0, 0);
-
-    return exportCanvas;
-}
-
-
-        const exportPNGButton = document.getElementById('exportPNG');
-
-        exportPNGButton.addEventListener('click', function () {
-            saveImage(imageCanvas, 'image/png', 'original_image.png');
-            const preparedCanvas = prepareCanvasForExport(drawCanvas);
-            saveImage(preparedCanvas, 'image/png', 'original_image_mask.png');
-        });
-
-        </script>
-    </body>
+    <script src="{{ url_for('serve_static', filename='js/scripts.js') }}"></script>
+</body>
 </html>
-
