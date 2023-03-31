@@ -1,4 +1,5 @@
 import os
+import subprocess
 import base64
 from flask import Flask, render_template, request, redirect, url_for, send_from_directory, send_file
 from flask_uploads import UploadSet, configure_uploads, ALL
@@ -43,7 +44,24 @@ def uploaded_file(filename):
 def serve_image(filename):
     return send_from_directory(app.config['UPLOADED_PHOTOS_DEST'], filename)
 
-@app.route('/export', methods=['POST'])
+@app.route('/output/<filename>')
+def serve_output(filename):
+    return send_from_directory('output', filename)
+
+@app.route('/process', methods=['POST'])
+def process_image():
+    input_image_dir = '/Users/Aydin/Desktop/lama_app/exported' 
+    output_dir = '/Users/Aydin/Desktop/lama_app/output'
+    os.makedirs(output_dir, exist_ok=True)
+    output_image_name = 'original_image_mask.png' 
+
+    script_path = os.path.join(os.getcwd(), 'scripts/run_model.sh')
+
+    # Call the shell script with the input image directory and output directory
+    subprocess.run([script_path, input_image_dir, output_dir], check=True)
+
+    return {'outputImagePath': url_for('serve_output', filename=output_image_name)}
+
 def export():
     img_data = request.form['imgData']
     img_type = request.form['imgType']

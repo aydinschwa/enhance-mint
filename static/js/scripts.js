@@ -141,10 +141,44 @@ function prepareCanvasForExport(canvas) {
     return exportCanvas;
 }
 
-const exportPNGButton = document.getElementById('exportPNG');
+const processImageButton = document.getElementById("processImage");
 
-exportPNGButton.addEventListener('click', function () {
-    saveImage(imageCanvas, 'image/png', 'original_image.png');
-    const preparedCanvas = prepareCanvasForExport(drawCanvas);
-    saveImage(preparedCanvas, 'image/png', 'original_image_mask.png');
+processImageButton.addEventListener("click", function () {
+  const xhr = new XMLHttpRequest();
+  xhr.open("POST", "/process", true);
+  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      const response = JSON.parse(xhr.responseText);
+      const outputImagePath = response.outputImagePath;
+      image.src = outputImagePath;
+      image.onload = function () {
+        imageCtx.clearRect(0, 0, imageCanvas.width, imageCanvas.height);
+        imageCtx.drawImage(image, 0, 0, imageCanvas.width, imageCanvas.height);
+      };
+    }
+  };
+  xhr.send("inputImagePath=" + encodeURIComponent(imageUrl));
 });
+
+function updateImageWithProcessed(filename) {
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", `/processed_image/${filename}`);
+    xhr.responseType = "blob";
+  
+    xhr.onload = function () {
+      if (xhr.status === 200) {
+        const imageBlob = xhr.response;
+        const imageUrl = URL.createObjectURL(imageBlob);
+        image.src = imageUrl;
+      } else {
+        console.error("Error fetching the processed image:", xhr.statusText);
+      }
+    };
+  
+    xhr.onerror = function () {
+      console.error("Error fetching the processed image:", xhr.statusText);
+    };
+  
+    xhr.send();
+  }

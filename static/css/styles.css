@@ -1,0 +1,41 @@
+/* styles.css */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+}
+
+.content-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 16px;
+}
+
+h1 {
+    text-align: center;
+}
+
+#canvasContainer {
+    position: relative;
+    display: inline-block;
+}
+
+#imageCanvas,
+#drawCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    cursor: crosshair;
+}
+
+.controls {
+    margin-top: 16px;
+    text-align: center;
+}
+
+.upload-another-image {
+    display: block;
+    margin-top: 16px;
+    text-align: center;
+}
