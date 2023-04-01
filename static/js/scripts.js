@@ -2,6 +2,8 @@ const imageCanvas = document.getElementById('imageCanvas');
 const drawCanvas = document.getElementById('drawCanvas');
 const imageCtx = imageCanvas.getContext('2d');
 const drawCtx = drawCanvas.getContext('2d');
+const previewCanvas = document.getElementById('previewCanvas');
+const previewCtx = previewCanvas.getContext('2d');
 const maxCanvasWidth = 800;
 const maxCanvasHeight = 600;
 const brushSizeInput = document.getElementById('brushSize');
@@ -10,7 +12,6 @@ const r = 255;
 const g = 102;
 const b = 102; 
 const brushColor = `rgb(${r}, ${g}, ${b})`;
-console.log(brushColor);
 
 const canvasContainer = document.getElementById('canvasContainer');
 const imageUrl = canvasContainer.getAttribute('data-image-url');
@@ -39,6 +40,9 @@ image.onload = function () {
   drawCanvas.width = newWidth;
   drawCanvas.height = newHeight;
   imageCtx.drawImage(image, 0, 0, newWidth, newHeight);
+
+  previewCanvas.width = newWidth;
+  previewCanvas.height = newHeight;
 };
 
 let drawing = false;
@@ -60,13 +64,18 @@ drawCanvas.addEventListener('mousedown', function (event) {
 });
 
 drawCanvas.addEventListener('mousemove', function (event) {
-    if (!drawing) return;
-    const xPos = event.clientX - drawCanvas.getBoundingClientRect().left;
-    const yPos = event.clientY - drawCanvas.getBoundingClientRect().top;
-    drawCtx.lineWidth = brushSizeInput.value;
-    drawCtx.lineTo(xPos, yPos);
-    drawCtx.stroke();
-    currentPath.push({ x: xPos, y: yPos, size: drawCtx.lineWidth });
+    if (drawing) {
+      const xPos = event.clientX - drawCanvas.getBoundingClientRect().left;
+      const yPos = event.clientY - drawCanvas.getBoundingClientRect().top;
+      drawCtx.lineWidth = brushSizeInput.value;
+      drawCtx.lineTo(xPos, yPos);
+      drawCtx.stroke();
+      currentPath.push({ x: xPos, y: yPos, size: drawCtx.lineWidth });
+    }
+    const xPos = event.clientX - previewCanvas.getBoundingClientRect().left;
+    const yPos = event.clientY - previewCanvas.getBoundingClientRect().top;
+    const brushSize = brushSizeInput.value;
+    drawBrushPreview(xPos, yPos, brushSize);
 });
 
 drawCanvas.addEventListener('mouseup', function () {
@@ -79,6 +88,7 @@ drawCanvas.addEventListener('mouseup', function () {
 
 drawCanvas.addEventListener('mouseout', function () {
     drawing = false;
+    clearBrushPreview();
 });
 
 undoButton.addEventListener('click', function () {
@@ -183,3 +193,17 @@ processImageButton.addEventListener("click", function () {
   xhr.send("inputImagePath=" + encodeURIComponent(imageUrl));
 });
 
+function drawBrushPreview(x, y, size) {
+  previewCtx.clearRect(0, 0, previewCanvas.width, previewCanvas.height);
+  previewCtx.strokeStyle = brushColor;
+  previewCtx.beginPath();
+  previewCtx.arc(x, y, size / 2, 0, Math.PI * 2);
+  previewCtx.stroke();
+  previewCtx.fillStyle = `rgba(${r}, ${g}, ${b}, 0.5)`; 
+  previewCtx.fill(); 
+
+}
+
+function clearBrushPreview() {
+  previewCtx.clearRect(0, 0, previewCanvas.width, previewCanvas.height);
+}
