@@ -19,7 +19,7 @@
   
   header {
     display: flex;
-    justify-content: space-between;
+    justify-content: center; 
     align-items: center;
     margin-bottom: 30px;
   }
@@ -44,7 +44,7 @@
   align-items: center;
 }
 
-.canvas-container {
+#canvasContainer {
   position: relative;
   display: inline-block;
   background-color: #fff;

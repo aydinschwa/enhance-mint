@@ -24,6 +24,9 @@ image.onload = function () {
   let newHeight = image.height;
   const maxCanvasWidth = 600;
   const maxCanvasHeight = 600;
+  
+  canvasContainer.style.height = `${image.height}px`
+  canvasContainer.style.width = `${image.width}px` 
 
   if (image.width > maxCanvasWidth) {
     newWidth = maxCanvasWidth;
