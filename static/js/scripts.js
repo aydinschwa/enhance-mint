@@ -143,9 +143,16 @@ function prepareCanvasForExport(canvas) {
     return exportCanvas;
 }
 
+// Add a function to show/hide the spinner
+function toggleSpinner(visible) {
+  const spinner = document.getElementById("spinner");
+  spinner.hidden = !visible;
+}
+
 const processImageButton = document.getElementById("processImage");
 
 processImageButton.addEventListener("click", function () {
+  toggleSpinner(true);
   saveImage(imageCanvas, 'image/png', 'original_image.png');
   const preparedCanvas = prepareCanvasForExport(drawCanvas);
   saveImage(preparedCanvas, 'image/png', 'original_image_mask.png');
@@ -164,6 +171,8 @@ processImageButton.addEventListener("click", function () {
 
       // Update the image source with the new image
       image.src = "data:image/png;base64," + outputImageB64;
+
+      toggleSpinner(false);
     }
   };
   xhr.send("inputImagePath=" + encodeURIComponent(imageUrl));
