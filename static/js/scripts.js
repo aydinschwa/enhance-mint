@@ -6,8 +6,11 @@ const maxCanvasWidth = 800;
 const maxCanvasHeight = 600;
 const brushSizeInput = document.getElementById('brushSize');
 const undoButton = document.getElementById('undo');
-const brushColor = "rgba(255, 102, 102, 0.5)";
-const brushAlpha = 0.5;
+const r = 255;
+const g = 102;
+const b = 102; 
+const brushColor = `rgb(${r}, ${g}, ${b})`;
+console.log(brushColor);
 
 const canvasContainer = document.getElementById('canvasContainer');
 const imageUrl = canvasContainer.getAttribute('data-image-url');
@@ -44,7 +47,11 @@ let currentPath = [];
 
 drawCanvas.addEventListener('mousedown', function (event) {
     drawing = true;
+    drawCtx.lineCap = 'round';
+    drawCtx.lineJoin = 'round';
     drawCtx.lineWidth = brushSizeInput.value;
+    drawCtx.strokeStyle = brushColor;
+    drawCtx.globalCompositeOperation = 'source-over';
     drawCtx.beginPath();
     const xPos = event.clientX - drawCanvas.getBoundingClientRect().left;
     const yPos = event.clientY - drawCanvas.getBoundingClientRect().top;
@@ -54,8 +61,6 @@ drawCanvas.addEventListener('mousedown', function (event) {
 
 drawCanvas.addEventListener('mousemove', function (event) {
     if (!drawing) return;
-    drawCtx.lineCap = 'round';
-    drawCtx.lineJoin = 'round';
     const xPos = event.clientX - drawCanvas.getBoundingClientRect().left;
     const yPos = event.clientY - drawCanvas.getBoundingClientRect().top;
     drawCtx.lineWidth = brushSizeInput.value;
@@ -87,9 +92,6 @@ drawCtx.lineWidth = brushSizeInput.value;
 
 function redraw() {
     drawCtx.clearRect(0, 0, drawCanvas.width, drawCanvas.height);
-    drawCtx.lineCap = 'round';
-    drawCtx.lineJoin = 'round';
-
     for (const path of paths) {
         drawCtx.beginPath();
         const startPoint = path[0];
@@ -128,7 +130,7 @@ function prepareCanvasForExport(canvas) {
     // Iterate through the pixel data and set the mask colors
     for (let i = 0; i < data.length; i += 4) {
         // If the pixel is black (brush color), set it to white
-        if (data[i] === 0 && data[i + 1] === 0 && data[i + 2] === 0) {
+        if (data[i] === r && data[i + 1] === g && data[i + 2] === b) {
             data[i] = 255;     // Red channel
             data[i + 1] = 255; // Green channel
             data[i + 2] = 255; // Blue channel

@@ -64,6 +64,10 @@
     top: 0;
     left: 0;
   }
+
+  #drawCanvas {
+    opacity: 0.5;
+  }
   
   button {
     display: inline-block;
