@@ -54,6 +54,8 @@ drawCanvas.addEventListener('mousedown', function (event) {
 
 drawCanvas.addEventListener('mousemove', function (event) {
     if (!drawing) return;
+    drawCtx.lineCap = 'round';
+    drawCtx.lineJoin = 'round';
     const xPos = event.clientX - drawCanvas.getBoundingClientRect().left;
     const yPos = event.clientY - drawCanvas.getBoundingClientRect().top;
     drawCtx.lineWidth = brushSizeInput.value;
@@ -86,6 +88,7 @@ drawCtx.lineWidth = brushSizeInput.value;
 function redraw() {
     drawCtx.clearRect(0, 0, drawCanvas.width, drawCanvas.height);
     drawCtx.lineCap = 'round';
+    drawCtx.lineJoin = 'round';
 
     for (const path of paths) {
         drawCtx.beginPath();
