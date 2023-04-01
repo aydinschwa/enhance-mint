@@ -15,25 +15,27 @@ const imageUrl = canvasContainer.getAttribute('data-image-url');
 const image = new Image();
 image.src = imageUrl;
 image.onload = function () {
-    const imgRatio = image.width / image.height;
-let newWidth = image.width;
-let newHeight = image.height;
+  const imgRatio = image.width / image.height;
+  let newWidth = image.width;
+  let newHeight = image.height;
+  const maxCanvasWidth = 600;
+  const maxCanvasHeight = 600;
 
-if (image.width > maxCanvasWidth) {
-newWidth = maxCanvasWidth;
-newHeight = newWidth / imgRatio;
-}
+  if (image.width > maxCanvasWidth) {
+    newWidth = maxCanvasWidth;
+    newHeight = newWidth / imgRatio;
+  }
 
-if (newHeight > maxCanvasHeight) {
-newHeight = maxCanvasHeight;
-newWidth = newHeight * imgRatio;
-}
+  if (newHeight > maxCanvasHeight) {
+    newHeight = maxCanvasHeight;
+    newWidth = newHeight * imgRatio;
+  }
 
-imageCanvas.width = newWidth;
-imageCanvas.height = newHeight;
-drawCanvas.width = newWidth;
-drawCanvas.height = newHeight;
-imageCtx.drawImage(image, 0, 0, newWidth, newHeight);
+  imageCanvas.width = newWidth;
+  imageCanvas.height = newHeight;
+  drawCanvas.width = newWidth;
+  drawCanvas.height = newHeight;
+  imageCtx.drawImage(image, 0, 0, newWidth, newHeight);
 };
 
 let drawing = false;

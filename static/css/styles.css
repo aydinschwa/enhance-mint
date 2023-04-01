@@ -1,41 +1,104 @@
-/* styles.css */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+/* Reset default styles */
+* {
     margin: 0;
     padding: 0;
-}
-
-.content-wrapper {
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f0f0;
+    color: #333;
+  }
+  
+  .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 16px;
+    padding: 30px;
+  }
+  
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+  }
+  
+  header h1 {
+    font-size: 2rem;
+    color: #333;
+  }
+  
+  .controls {
+    display: flex;
+    align-items: center;
+  }
+  
+  .controls label {
+    margin-right: 10px;
+  }
+  
+  .main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-h1 {
-    text-align: center;
-}
-
-#canvasContainer {
-    position: relative;
-    display: inline-block;
-}
-
-#imageCanvas,
-#drawCanvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-    cursor: crosshair;
+.canvas-container {
+  position: relative;
+  display: inline-block;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  margin-bottom: 30px; /* Add margin to separate the canvas and controls */
 }
 
 .controls {
-    margin-top: 16px;
-    text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px; /* Add space between controls */
 }
-
-.upload-another-image {
-    display: block;
-    margin-top: 16px;
+  
+  canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  
+  button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    margin: 10px 0;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  button:active {
+    background-color: #003380;
+  }
+  
+  button:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5);
+  }
+  
+  .instructions {
+    margin: 30px 0;
+    font-size: 1.2rem;
+  }
+  
+  footer {
+    margin-top: 50px;
+    font-size: 0.9rem;
     text-align: center;
-}
+    color: #999;
+  }
+  

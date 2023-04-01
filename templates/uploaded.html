@@ -8,19 +8,22 @@
 </head>
 <body>
     <div class="content-wrapper">
-        <h1>Uploaded Image</h1>
-        <div id="canvasContainer" data-image-url="{{ url_for('serve_image', filename=filename) }}">
-            <canvas id="imageCanvas"></canvas>
-            <canvas id="drawCanvas"></canvas>
-        </div>
-        <div class="controls">
-            <label for="brushSize">Brush size: </label>
-            <input type="range" id="brushSize" name="brushSize" min="1" max="50" value="5">
-            <button id="undo">Undo</button>
-            <button id="processImage">Process Image</button>
+        <div class="main">
+            <h1>Magic Eraser</h1>
+        </br>
+            <div id="canvasContainer" data-image-url="{{ url_for('serve_image', filename=filename) }}">
+                <canvas id="imageCanvas"></canvas>
+                <canvas id="drawCanvas"></canvas>
+            </div>
+            <div class="controls">
+                <label for="brushSize">Brush size: </label>
+                <input type="range" id="brushSize" name="brushSize" min="1" max="50" value="5">
+                <button id="undo">Undo</button>
+                <button id="processImage">Process Image</button>
+                <a href="{{ url_for('index') }}" class="upload-another-image">Upload another image</a>
+            </div>
         </div>
     </div>
-    <a href="{{ url_for('index') }}" class="upload-another-image">Upload another image</a>
 
     <script src="{{ url_for('serve_static', filename='js/scripts.js') }}"></script>
 </body>
