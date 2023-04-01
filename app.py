@@ -6,8 +6,9 @@ from flask_uploads import UploadSet, configure_uploads, ALL
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
-app.config['EXPORT_FOLDER'] = 'exported'
 app.config['UPLOADED_PHOTOS_DEST'] = 'uploads'
+app.config['EXPORT_FOLDER'] = '/Users/Aydin/Desktop/lama_app/exported'
+app.config['OUTPUT_FOLDER'] = '/Users/Aydin/Desktop/lama_app/output'
 
 # Configure file uploads
 photos = UploadSet('photos', ALL)
@@ -48,20 +49,7 @@ def serve_image(filename):
 def serve_output(filename):
     return send_from_directory('output', filename)
 
-@app.route('/process', methods=['POST'])
-def process_image():
-    input_image_dir = '/Users/Aydin/Desktop/lama_app/exported' 
-    output_dir = '/Users/Aydin/Desktop/lama_app/output'
-    os.makedirs(output_dir, exist_ok=True)
-    output_image_name = 'original_image_mask.png' 
-
-    script_path = os.path.join(os.getcwd(), 'scripts/run_model.sh')
-
-    # Call the shell script with the input image directory and output directory
-    subprocess.run([script_path, input_image_dir, output_dir], check=True)
-
-    return {'outputImagePath': url_for('serve_output', filename=output_image_name)}
-
+@app.route('/export', methods=['POST'])
 def export():
     img_data = request.form['imgData']
     img_type = request.form['imgType']
@@ -76,6 +64,28 @@ def export():
         f.write(img_data)
 
     return 'Image saved', 200
+
+@app.route('/process', methods=['POST'])
+def process():
+    input_image_dir = app.config['EXPORT_FOLDER'] 
+    output_dir = app.config['OUTPUT_FOLDER'] 
+    os.makedirs(output_dir, exist_ok=True)
+    output_image_name = 'original_image_mask.png' 
+
+    script_path = os.path.join(os.getcwd(), 'scripts/run_model.sh')
+
+    # Call the shell script with the input image directory and output directory
+    subprocess.run([script_path, input_image_dir, output_dir], check=True)
+
+    output_image_path = os.path.join(output_dir, output_image_name)
+
+    with open(output_image_path, 'rb') as f:
+        output_image_data = f.read()
+
+    output_image_b64 = base64.b64encode(output_image_data).decode('utf-8')
+
+    return {'outputImageB64': output_image_b64}
+
 
 if __name__ == '__main__':
     app.run(debug=True)
