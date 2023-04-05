@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Uploaded Image</title>
-    <link rel="stylesheet" href="{{ url_for('serve_static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for("serve_static", filename="css/styles.css") }}">
 </head>
 <body>
             <center>
-            <h1>Magic Eraser</h1>
+            <h1>Background Eraser</h1>
             </center>
             <br>
             <center>
-            <div id="canvasContainer" data-image-url="{{ url_for('serve_image', filename=filename) }}">
+            <div id="canvasContainer" data-image-url="{{ url_for("serve_image", filename=filename) }}">
                 <canvas id="imageCanvas"></canvas>
                 <canvas id="previewCanvas"></canvas>
                 <canvas id="drawCanvas"></canvas>
@@ -24,9 +24,9 @@
                 <input type="range" id="brushSize" name="brushSize" min="1" max="50" value="5">
                 <button id="undo">Undo</button>
                 <button id="processImage">Process Image</button>
-                <a href="{{ url_for('index') }}" class="upload-another-image">Upload another image</a>
+                <a href="{{ url_for("index") }}" class="upload-another-image">Upload another image</a>
             </div>
 
-    <script src="{{ url_for('serve_static', filename='js/scripts.js') }}"></script>
+    <script src="{{ url_for("serve_static", filename="js/scripts.js") }}"></script>
 </body>
 </html>

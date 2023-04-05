@@ -1,20 +1,20 @@
-const imageCanvas = document.getElementById('imageCanvas');
-const drawCanvas = document.getElementById('drawCanvas');
-const imageCtx = imageCanvas.getContext('2d');
-const drawCtx = drawCanvas.getContext('2d');
-const previewCanvas = document.getElementById('previewCanvas');
-const previewCtx = previewCanvas.getContext('2d');
+const imageCanvas = document.getElementById("imageCanvas");
+const drawCanvas = document.getElementById("drawCanvas");
+const imageCtx = imageCanvas.getContext("2d");
+const drawCtx = drawCanvas.getContext("2d");
+const previewCanvas = document.getElementById("previewCanvas");
+const previewCtx = previewCanvas.getContext("2d");
 const maxCanvasWidth = 800;
-const maxCanvasHeight = 600;
-const brushSizeInput = document.getElementById('brushSize');
-const undoButton = document.getElementById('undo');
+const maxCanvasHeight = 800;
+const brushSizeInput = document.getElementById("brushSize");
+const undoButton = document.getElementById("undo");
 const r = 255;
 const g = 102;
 const b = 102; 
 const brushColor = `rgb(${r}, ${g}, ${b})`;
 
-const canvasContainer = document.getElementById('canvasContainer');
-const imageUrl = canvasContainer.getAttribute('data-image-url');
+const canvasContainer = document.getElementById("canvasContainer");
+const imageUrl = canvasContainer.getAttribute("data-image-url");
 
 const image = new Image();
 image.src = imageUrl;
@@ -22,12 +22,7 @@ image.onload = function () {
   const imgRatio = image.width / image.height;
   let newWidth = image.width;
   let newHeight = image.height;
-  const maxCanvasWidth = 600;
-  const maxCanvasHeight = 600;
   
-  canvasContainer.style.height = `${image.height}px`
-  canvasContainer.style.width = `${image.width}px` 
-
   if (image.width > maxCanvasWidth) {
     newWidth = maxCanvasWidth;
     newHeight = newWidth / imgRatio;
@@ -42,23 +37,26 @@ image.onload = function () {
   imageCanvas.height = newHeight;
   drawCanvas.width = newWidth;
   drawCanvas.height = newHeight;
-  imageCtx.drawImage(image, 0, 0, newWidth, newHeight);
-
   previewCanvas.width = newWidth;
   previewCanvas.height = newHeight;
+  imageCtx.drawImage(image, 0, 0, newWidth, newHeight);
+  
+  canvasContainer.style.height = `${newHeight}px`
+  canvasContainer.style.width = `${newWidth}px` 
+
 };
 
 let drawing = false;
 let paths = [];
 let currentPath = [];
 
-drawCanvas.addEventListener('mousedown', function (event) {
+drawCanvas.addEventListener("mousedown", function (event) {
     drawing = true;
-    drawCtx.lineCap = 'round';
-    drawCtx.lineJoin = 'round';
+    drawCtx.lineCap = "round";
+    drawCtx.lineJoin = "round";
     drawCtx.lineWidth = brushSizeInput.value;
     drawCtx.strokeStyle = brushColor;
-    drawCtx.globalCompositeOperation = 'source-over';
+    drawCtx.globalCompositeOperation = "source-over";
     drawCtx.beginPath();
     const xPos = event.clientX - drawCanvas.getBoundingClientRect().left;
     const yPos = event.clientY - drawCanvas.getBoundingClientRect().top;
@@ -66,7 +64,7 @@ drawCanvas.addEventListener('mousedown', function (event) {
     currentPath.push({ x: xPos, y: yPos, size: drawCtx.lineWidth });
 });
 
-drawCanvas.addEventListener('mousemove', function (event) {
+drawCanvas.addEventListener("mousemove", function (event) {
     if (drawing) {
       const xPos = event.clientX - drawCanvas.getBoundingClientRect().left;
       const yPos = event.clientY - drawCanvas.getBoundingClientRect().top;
@@ -81,7 +79,7 @@ drawCanvas.addEventListener('mousemove', function (event) {
     drawBrushPreview(xPos, yPos, brushSize);
 });
 
-drawCanvas.addEventListener('mouseup', function () {
+drawCanvas.addEventListener("mouseup", function () {
     if (drawing) {
         paths.push(currentPath);
         currentPath = [];
@@ -89,18 +87,18 @@ drawCanvas.addEventListener('mouseup', function () {
     drawing = false;
 });
 
-drawCanvas.addEventListener('mouseout', function () {
+drawCanvas.addEventListener("mouseout", function () {
     drawing = false;
     clearBrushPreview();
 });
 
-undoButton.addEventListener('click', function () {
-    paths.pop();
-    redraw();
+brushSizeInput.addEventListener("input", function () {
+drawCtx.lineWidth = brushSizeInput.value;
 });
 
-brushSizeInput.addEventListener('input', function () {
-drawCtx.lineWidth = brushSizeInput.value;
+undoButton.addEventListener("click", function () {
+    paths.pop();
+    redraw();
 });
 
 function redraw() {
@@ -119,19 +117,36 @@ function redraw() {
     }
 }
 
-function saveImage(canvas, imgType, imgName) {
+async function saveImage(canvas, imgType, imgName) {
     const imageData = canvas.toDataURL(imgType);
-    const xhr = new XMLHttpRequest();
-    xhr.open('POST', '/export', true);
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhr.send('imgData=' + encodeURIComponent(imageData) + '&imgType=' + encodeURIComponent(imgType) + '&imgName=' + encodeURIComponent(imgName));
+    const data = new URLSearchParams();
+    data.append("imgData", imageData);
+    data.append("imgType", imgType);
+    data.append("imgName", imgName);
+
+    try {
+    const response = await fetch("/export", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: data,
+    });
+
+    if (!response.ok) {
+      throw new Error(`Request failed with status ${response.status}`);
+    }
+  }
+  catch (error) {
+    console.error(`Error Saving Image: ${error}`)
+  }
 }
 
 function prepareCanvasForExport(canvas) {
-    const exportCanvas = document.createElement('canvas');
+    const exportCanvas = document.createElement("canvas");
     exportCanvas.width = canvas.width;
     exportCanvas.height = canvas.height;
-    const exportCtx = exportCanvas.getContext('2d');
+    const exportCtx = exportCanvas.getContext("2d");
 
     // Draw the original canvas content onto the exportCanvas
     exportCtx.drawImage(canvas, 0, 0);
@@ -161,7 +176,6 @@ function prepareCanvasForExport(canvas) {
     return exportCanvas;
 }
 
-// Add a function to show/hide the spinner
 function toggleSpinner(visible) {
   const spinner = document.getElementById("spinner");
   spinner.hidden = !visible;
@@ -169,31 +183,40 @@ function toggleSpinner(visible) {
 
 const processImageButton = document.getElementById("processImage");
 
-processImageButton.addEventListener("click", function () {
+processImageButton.addEventListener("click", async function () {
   toggleSpinner(true);
-  saveImage(imageCanvas, 'image/png', 'original_image.png');
+  saveImage(imageCanvas, "image/png", "original_image.png");
   const preparedCanvas = prepareCanvasForExport(drawCanvas);
-  saveImage(preparedCanvas, 'image/png', 'original_image_mask.png');
+  saveImage(preparedCanvas, "image/png", "original_image_mask.png");
 
-  const xhr = new XMLHttpRequest();
-  xhr.open("POST", "/process", true);
-  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-  xhr.onreadystatechange = function () {
-    if (xhr.readyState === 4 && xhr.status === 200) {
-      const response = JSON.parse(xhr.responseText);
-      const outputImageB64 = response.outputImageB64;
+  try {
+    const response = await fetch("/process", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: ""
+    });
 
-      // Clear the draw canvas
-      drawCtx.clearRect(0, 0, drawCanvas.width, drawCanvas.height);
-      paths = []; // Reset the stored paths
-
-      // Update the image source with the new image
-      image.src = "data:image/png;base64," + outputImageB64;
-
-      toggleSpinner(false);
+    if (!response.ok) {
+      throw new Error(`Request failed with status ${response.status}`);
     }
-  };
-  xhr.send("inputImagePath=" + encodeURIComponent(imageUrl));
+
+    const data = await response.json();
+    const outputImageB64 = data.outputImageB64;
+
+    // Clear the draw canvas
+    drawCtx.clearRect(0, 0, drawCanvas.width, drawCanvas.height);
+    paths = []; // Reset the stored paths
+
+    // Update the image source with the new image
+    image.src = "data:image/png;base64," + outputImageB64;
+
+    toggleSpinner(false);
+  } catch (error) {
+    console.error("Error processing image:", error);
+    toggleSpinner(false);
+  }
 });
 
 function drawBrushPreview(x, y, size) {
