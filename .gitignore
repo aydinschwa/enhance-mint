@@ -2,3 +2,5 @@ venv
 exported
 output
 uploads
+__pycache__
+models/lama/big-lama/models/*

@@ -14,6 +14,12 @@ app.config["OUTPUT_FOLDER"] = "/Users/Aydin/Desktop/lama_app/output"
 photos = UploadSet("photos", ALL)
 configure_uploads(app, photos)
 
+RUN_MODEL=False
+# set model as global variable
+if RUN_MODEL:
+    from models.lama.lama import get_model_instance, make_prediction
+    model, predict_config = get_model_instance()
+
 @app.route("/static/<path:filename>")
 def serve_static(filename):
     return send_from_directory("static", filename)
@@ -74,9 +80,14 @@ def process():
 
     script_path = os.path.join(os.getcwd(), "scripts/run_model.sh")
 
+
+    if RUN_MODEL:
+        make_prediction(model, predict_config) 
+
     # Call the shell script with the input image directory and output directory
     #TODO: change name of image output to actually be output_image_name
-    subprocess.run([script_path, input_image_dir, output_dir], check=True)
+    else:
+        subprocess.run([script_path, input_image_dir, output_dir], check=True)
 
     output_image_path = os.path.join(output_dir, output_image_name)
 
