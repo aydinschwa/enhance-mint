@@ -16,9 +16,8 @@ tqdm
 numpy
 easydict==1.9.0
 scikit-image
-scikit-learn==0.24.2
+scikit-learn
 opencv-python
-tensorflow
 joblib
 matplotlib
 pandas
@@ -29,4 +28,4 @@ tabulate
 kornia==0.5.0
 webdataset
 packaging
-scikit-learn==0.24.2
+wldhx.yadisk-direct
