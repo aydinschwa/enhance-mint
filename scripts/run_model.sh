@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Should take two arguments, image directory and output directory
-IMAGES=$1
-OUTPUT=$2
+IMAGES=$(pwd)/$1
+OUTPUT=$(pwd)/$2
 
 cd models/lama
 

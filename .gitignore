@@ -4,3 +4,4 @@ output
 uploads
 __pycache__
 models/lama/big-lama/models/*
+models/lama/outputs/*

@@ -6,9 +6,9 @@ from flask_uploads import UploadSet, configure_uploads, ALL
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
-app.config["UPLOADED_PHOTOS_DEST"] = "uploads"
-app.config["EXPORT_FOLDER"] = "/Users/Aydin/Desktop/lama_app/exported"
-app.config["OUTPUT_FOLDER"] = "/Users/Aydin/Desktop/lama_app/output"
+app.config["UPLOADED_PHOTOS_DEST"] = "uploads/"
+app.config["EXPORT_FOLDER"] = "exported/"
+app.config["OUTPUT_FOLDER"] = "output/"
 
 # Configure file uploads
 photos = UploadSet("photos", ALL)
