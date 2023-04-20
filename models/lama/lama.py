@@ -54,7 +54,7 @@ def get_model_instance():
     return model, predict_config
 
 
-def make_prediction(model, predict_config):
+def make_prediction(model, predict_config, stack_pos):
     out_ext = predict_config.get('out_ext', '.png')
     device = torch.device(predict_config.device)
     if not predict_config.get('refine', False):
@@ -64,7 +64,7 @@ def make_prediction(model, predict_config):
         mask_fname = dataset.mask_filenames[img_i]
         cur_out_fname = os.path.join(
             predict_config.outdir, 
-            os.path.splitext(mask_fname[len(predict_config.indir):])[0] + out_ext
+            os.path.splitext(mask_fname[len(predict_config.indir):])[0] + stack_pos + out_ext
         )
         os.makedirs(os.path.dirname(cur_out_fname), exist_ok=True)
         batch = default_collate([dataset[img_i]])

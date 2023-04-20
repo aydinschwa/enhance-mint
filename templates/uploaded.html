@@ -22,7 +22,8 @@
             <div class="controls">
                 <label for="brushSize">Brush size: </label>
                 <input type="range" id="brushSize" name="brushSize" min="1" max="50" value="5">
-                <button id="undo">Undo</button>
+                <button id="undoStroke">Undo Brush Stroke</button>
+                <button id="undoErase">Undo Image Erase</button>
                 <button id="processImage">Process Image</button>
                 <a href="{{ url_for('index') }}" class="upload-another-image">Upload another image</a>
             </div>

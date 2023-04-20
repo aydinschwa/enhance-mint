@@ -4,6 +4,7 @@ import base64
 from flask import Flask, render_template, request, redirect, url_for, send_from_directory, send_file
 from flask_uploads import UploadSet, configure_uploads, ALL
 from werkzeug.utils import secure_filename
+from shutil import copyfile
 
 app = Flask(__name__)
 app.config["UPLOADED_PHOTOS_DEST"] = "uploads/"
@@ -13,6 +14,12 @@ app.config["OUTPUT_FOLDER"] = "output/"
 # Configure file uploads
 photos = UploadSet("photos", ALL)
 configure_uploads(app, photos)
+
+# Clear output directory
+files = os.listdir(app.config["OUTPUT_FOLDER"])
+for file in files:
+    file_path = os.path.join(app.config["OUTPUT_FOLDER"], file)
+    os.unlink(file_path)
 
 RUN_MODEL = True
 # set model as global variable
@@ -39,6 +46,12 @@ def upload():
 
     if file and photos.file_allowed(file, file.filename):
         filename = photos.save(file)
+
+        # Save the uploaded image as original_mask_0.png in the "output" directory
+        original_mask_file = secure_filename("original_image_mask0.png")
+        original_mask_path = os.path.join(app.config["OUTPUT_FOLDER"], original_mask_file)
+        uploaded_image_path = os.path.join(app.config["UPLOADED_PHOTOS_DEST"], filename)
+        copyfile(uploaded_image_path, original_mask_path)
 
         # Check the value of the "action" parameter
         action = request.form.get("action", "erase")
@@ -83,19 +96,19 @@ def process():
     input_image_dir = app.config["EXPORT_FOLDER"] 
     output_dir = app.config["OUTPUT_FOLDER"] 
     os.makedirs(output_dir, exist_ok=True)
-    output_image_name = "original_image_mask.png" 
+    stack_position = request.form["stackPos"]
 
     script_path = os.path.join(os.getcwd(), "scripts/run_model.sh")
 
-
     if RUN_MODEL:
-        make_prediction(model, predict_config) 
+        make_prediction(model, predict_config, stack_position) 
 
     # Call the shell script with the input image directory and output directory
     #TODO: change name of image output to actually be output_image_name
     else:
         subprocess.run([script_path, input_image_dir, output_dir], check=True)
 
+    output_image_name = f"original_image_mask{stack_position}.png" 
     output_image_path = os.path.join(output_dir, output_image_name)
 
     with open(output_image_path, "rb") as f:

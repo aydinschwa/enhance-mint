@@ -7,7 +7,9 @@ const previewCtx = previewCanvas.getContext("2d");
 const maxCanvasWidth = 800;
 const maxCanvasHeight = 800;
 const brushSizeInput = document.getElementById("brushSize");
-const undoButton = document.getElementById("undo");
+const undoStrokeButton = document.getElementById("undoStroke");
+const undoImageButton = document.getElementById("undoErase");
+const processImageButton = document.getElementById("processImage");
 const r = 255;
 const g = 102;
 const b = 102; 
@@ -15,6 +17,7 @@ const brushColor = `rgb(${r}, ${g}, ${b})`;
 
 const canvasContainer = document.getElementById("canvasContainer");
 const imageUrl = canvasContainer.getAttribute("data-image-url");
+let photoIndex = 0;
 
 const image = new Image();
 image.src = imageUrl;
@@ -96,10 +99,37 @@ brushSizeInput.addEventListener("input", function () {
 drawCtx.lineWidth = brushSizeInput.value;
 });
 
-undoButton.addEventListener("click", function () {
+undoStrokeButton.addEventListener("click", function () {
     paths.pop();
     redraw();
 });
+
+undoImageButton.addEventListener("click", function() {
+  console.log(photoIndex)
+  if (photoIndex > 0) {
+      loadPreviousImage();
+  }
+  
+})
+
+async function loadPreviousImage() {
+  try {
+    photoIndex -= 1;
+
+    const response = await fetch(`/output/original_image_mask${photoIndex}.png`);
+
+    const blob = await response.blob();
+    const imageUrl = URL.createObjectURL(blob);
+    image.src = imageUrl;
+
+    // Clear the draw canvas
+    drawCtx.clearRect(0, 0, drawCanvas.width, drawCanvas.height);
+    paths = []; // Reset the stored paths
+    
+  } catch (error) {
+    console.error(`Error loading previous image: ${error}`);
+  }
+}
 
 function redraw() {
     drawCtx.clearRect(0, 0, drawCanvas.width, drawCanvas.height);
@@ -181,8 +211,6 @@ function toggleSpinner(visible) {
   spinner.hidden = !visible;
 }
 
-const processImageButton = document.getElementById("processImage");
-
 processImageButton.addEventListener("click", async function () {
   toggleSpinner(true);
   saveImage(imageCanvas, "image/png", "original_image.png");
@@ -190,12 +218,15 @@ processImageButton.addEventListener("click", async function () {
   saveImage(preparedCanvas, "image/png", "original_image_mask.png");
 
   try {
+    photoIndex += 1;
+    const posData = new URLSearchParams();
+    posData.append("stackPos", photoIndex);
     const response = await fetch("/process", {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
       },
-      body: ""
+      body: posData
     });
 
     if (!response.ok) {
@@ -213,7 +244,9 @@ processImageButton.addEventListener("click", async function () {
     image.src = "data:image/png;base64," + outputImageB64;
 
     toggleSpinner(false);
+
   } catch (error) {
+    photoIndex -= 1;
     console.error("Error processing image:", error);
     toggleSpinner(false);
   }
@@ -227,7 +260,6 @@ function drawBrushPreview(x, y, size) {
   previewCtx.stroke();
   previewCtx.fillStyle = `rgba(${r}, ${g}, ${b}, 0.5)`; 
   previewCtx.fill(); 
-
 }
 
 function clearBrushPreview() {
