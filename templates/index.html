@@ -4,12 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Background Eraser</title>
+    <link rel="stylesheet" href="{{ url_for('serve_static', filename='css/homepage_styles.css') }}">
+    <script src="{{ url_for('serve_static', filename='js/homepage_scripts.js') }}"></script>
 </head>
 <body>
     <h1>Background Eraser</h1>
+    <div id="image-placeholder" style="text-align: center;"></div>
     <form action="/upload" method="POST" enctype="multipart/form-data">
-        <input type="file" name="photo" accept="image/*,.pdf">
-        <button type="submit">Upload</button>
+        <input type="file" name="photo" id="photo" accept="image/*,.pdf", onchange="previewImage();">
+        <div>
+            <button type="submit" name="action" value="erase">Erase</button>
+            <button type="submit" name="action" value="enhance">Enhance</button>
+        </div>
     </form>
 </body>
 </html>

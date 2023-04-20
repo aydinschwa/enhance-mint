@@ -14,7 +14,7 @@ app.config["OUTPUT_FOLDER"] = "output/"
 photos = UploadSet("photos", ALL)
 configure_uploads(app, photos)
 
-RUN_MODEL=False
+RUN_MODEL = True
 # set model as global variable
 if RUN_MODEL:
     from models.lama.lama import get_model_instance, make_prediction
@@ -39,6 +39,13 @@ def upload():
 
     if file and photos.file_allowed(file, file.filename):
         filename = photos.save(file)
+
+        # Check the value of the "action" parameter
+        action = request.form.get("action", "erase")
+        if action == "enhance":
+            return redirect(url_for("enhancer"))
+
+        # Redirect to the "uploaded_file" route for "erase" action
         return redirect(url_for("uploaded_file", filename=filename))
 
     return redirect(url_for("index"))
@@ -98,6 +105,10 @@ def process():
 
     return {"outputImageB64": output_image_b64}
 
+
+@app.route("/enhancer")
+def enhancer():
+    return render_template("enhancer.html")
 
 if __name__ == "__main__":
     app.run(debug=True)
