@@ -8,6 +8,22 @@
 </head>
 <body>
     <h1>Background Eraser</h1>
-    <button type="enhancer">Enhancer</button>
+    <div>
+    <img src="{{ url_for('serve_image', filename=filename) }}">
+    </div>
+    <div>
+    <button id="amplify_edges">Amplify Edges</button>
+    <button id="blur">Blur</button>
+    <button id="smooth">Smooth</button>
+    <button id="increase_color">Increase Color</button>
+    <button id="increase_contrast">Increase Contrast</button>
+    <button id="sharpen">Sharpen</button>
+    <button id="brighten">Brighten</button>
+    <button id="darken">Darken</button>
+    <button id="auto_enhance">Auto Enhance</button>
+    <button id="back">Undo</button>
+    </div>
+    <a href="{{ url_for('index') }}" class="upload-another-image">Upload another image</a>
+    <script src="{{ url_for('serve_static', filename='js/enhancer_scripts.js') }}"></script>
 </body>
 </html>
