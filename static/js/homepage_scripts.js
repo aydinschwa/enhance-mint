@@ -9,7 +9,7 @@ function previewImage() {
             imagePlaceholder.style.backgroundColor = 'transparent';
             imagePlaceholder.innerHTML = 
             `<img src="${event.target.result}" 
-              style="max-width: 500px; max-height: 500px; 
+              style="max-width: 700px; max-height: 700px; 
               display: inline-block; vertical-align: middle;">`;
         };
 
