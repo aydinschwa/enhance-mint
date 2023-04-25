@@ -24,7 +24,7 @@ for file in files:
     os.unlink(file_path)
 
 picture_instance = None
-RUN_MODEL = True
+RUN_MODEL = False
 # set model as global variable
 if RUN_MODEL:
     from models.lama.lama import get_model_instance, make_prediction
