@@ -11,6 +11,7 @@ const undoStrokeButton = document.getElementById("undoStroke");
 const undoImageButton = document.getElementById("undoErase");
 const processImageButton = document.getElementById("processImage");
 const saveImageButton = document.getElementById("saveImage");
+const resetImageButton = document.getElementById("resetImage");
 const r = 255;
 const g = 102;
 const b = 102; 
@@ -106,10 +107,14 @@ undoStrokeButton.addEventListener("click", () => {
 });
 
 undoImageButton.addEventListener("click", () => {
-  console.log(photoIndex)
   if (photoIndex > 0) {
       loadPreviousImage();
   }
+})
+
+resetImageButton.addEventListener("click", () => {
+  photoIndex = 0;
+  loadPreviousImage();
 })
 
 saveImageButton.addEventListener("click", () => {
@@ -119,7 +124,7 @@ saveImageButton.addEventListener("click", () => {
 
 async function loadPreviousImage() {
   try {
-    photoIndex -= 1;
+    if (photoIndex !== 0) {photoIndex -= 1;}
 
     const response = await fetch(`/output/original_image_mask${photoIndex}.png`);
 
