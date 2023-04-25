@@ -42,5 +42,5 @@ enhanceButtons.forEach((button) => {
 saveImageButton.addEventListener('click', function() {
     const image = document.querySelector('img');
     saveImageButton.href = image.src;
-    saveImageButton.download = `${image.src}`;
+    saveImageButton.download = 'photo_enhanced';
 });
