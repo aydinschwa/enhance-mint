@@ -90,7 +90,7 @@ class Picture:
         self._interthread_index += 1
 
     def darken(self, darken=0.9):
-        self.img = ImageEnhance.Sharpness(self.img).enhance(darken)
+        self.img = ImageEnhance.Brightness(self.img).enhance(darken)
         self._editing_threads[self._thread_index].append(self.img)
         self._interthread_index += 1
 

@@ -1,4 +1,3 @@
-    
 const amplifyEdgeButton = document.getElementById("amplify_edges");
 const blurButton = document.getElementById("blur");
 const smoothButton = document.getElementById("smooth");
@@ -8,12 +7,13 @@ const sharpenButton = document.getElementById("sharpen");
 const brightenButton = document.getElementById("brighten");
 const darkenButton = document.getElementById("darken");
 const autoEnhanceButton = document.getElementById("auto_enhance");
-
 const enhanceButtons = document.querySelectorAll("button");
+const saveImageButton = document.getElementById("saveImage");
 const imgElement = document.querySelector("img");
 
 enhanceButtons.forEach((button) => {
-    button.addEventListener("click", function () {
+    if (button.id !== "saveImage") {
+    button.addEventListener("click", () => {
         const function_name = button.id;
 
         fetch(`/enhance/${function_name}`, {
@@ -36,4 +36,11 @@ enhanceButtons.forEach((button) => {
             console.error("Error:", error);
         });
     });
+    }
+});
+
+saveImageButton.addEventListener('click', function() {
+    const image = document.querySelector('img');
+    saveImageButton.href = image.src;
+    saveImageButton.download = `${image.src}`;
 });

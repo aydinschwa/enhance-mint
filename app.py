@@ -69,7 +69,7 @@ def upload():
 
 @app.route("/uploads/<filename>")
 def uploaded_file(filename):
-    return render_template("uploaded.html", filename=filename)
+    return render_template("eraser.html", filename=filename)
 
 @app.route("/image/<filename>")
 def serve_image(filename):

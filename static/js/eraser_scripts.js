@@ -10,6 +10,7 @@ const brushSizeInput = document.getElementById("brushSize");
 const undoStrokeButton = document.getElementById("undoStroke");
 const undoImageButton = document.getElementById("undoErase");
 const processImageButton = document.getElementById("processImage");
+const saveImageButton = document.getElementById("saveImage");
 const r = 255;
 const g = 102;
 const b = 102; 
@@ -21,7 +22,7 @@ let photoIndex = 0;
 
 const image = new Image();
 image.src = imageUrl;
-image.onload = function () {
+image.onload = () => {
   const imgRatio = image.width / image.height;
   let newWidth = image.width;
   let newHeight = image.height;
@@ -53,7 +54,7 @@ let drawing = false;
 let paths = [];
 let currentPath = [];
 
-drawCanvas.addEventListener("mousedown", function (event) {
+drawCanvas.addEventListener("mousedown", (event) => {
     drawing = true;
     drawCtx.lineCap = "round";
     drawCtx.lineJoin = "round";
@@ -67,7 +68,7 @@ drawCanvas.addEventListener("mousedown", function (event) {
     currentPath.push({ x: xPos, y: yPos, size: drawCtx.lineWidth });
 });
 
-drawCanvas.addEventListener("mousemove", function (event) {
+drawCanvas.addEventListener("mousemove", (event) => {
     if (drawing) {
       const xPos = event.clientX - drawCanvas.getBoundingClientRect().left;
       const yPos = event.clientY - drawCanvas.getBoundingClientRect().top;
@@ -82,7 +83,7 @@ drawCanvas.addEventListener("mousemove", function (event) {
     drawBrushPreview(xPos, yPos, brushSize);
 });
 
-drawCanvas.addEventListener("mouseup", function () {
+drawCanvas.addEventListener("mouseup", () => {
     if (drawing) {
         paths.push(currentPath);
         currentPath = [];
@@ -90,26 +91,30 @@ drawCanvas.addEventListener("mouseup", function () {
     drawing = false;
 });
 
-drawCanvas.addEventListener("mouseout", function () {
+drawCanvas.addEventListener("mouseout", () => {
     drawing = false;
     clearBrushPreview();
 });
 
-brushSizeInput.addEventListener("input", function () {
+brushSizeInput.addEventListener("input", () => {
 drawCtx.lineWidth = brushSizeInput.value;
 });
 
-undoStrokeButton.addEventListener("click", function () {
+undoStrokeButton.addEventListener("click", () => {
     paths.pop();
     redraw();
 });
 
-undoImageButton.addEventListener("click", function() {
+undoImageButton.addEventListener("click", () => {
   console.log(photoIndex)
   if (photoIndex > 0) {
       loadPreviousImage();
   }
-  
+})
+
+saveImageButton.addEventListener("click", () => {
+  let dataURL = imageCanvas.toDataURL("image/png");
+  saveImageButton.href = dataURL;
 })
 
 async function loadPreviousImage() {
@@ -211,7 +216,7 @@ function toggleSpinner(visible) {
   spinner.hidden = !visible;
 }
 
-processImageButton.addEventListener("click", async function () {
+processImageButton.addEventListener("click", async () => {
   toggleSpinner(true);
   saveImage(imageCanvas, "image/png", "original_image.png");
   const preparedCanvas = prepareCanvasForExport(drawCanvas);

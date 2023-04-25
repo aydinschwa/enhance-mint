@@ -5,7 +5,7 @@ function previewImage() {
     if (photoInput.files && photoInput.files[0]) {
         const fileReader = new FileReader();
 
-        fileReader.onload = function (event) {
+        fileReader.onload = (event) => {
             imagePlaceholder.style.backgroundColor = 'transparent';
             imagePlaceholder.innerHTML = 
             `<img src="${event.target.result}" 

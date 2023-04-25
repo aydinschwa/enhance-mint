@@ -6,7 +6,7 @@
     <title>Uploaded Image</title>
     <link rel="stylesheet" href="{{ url_for('serve_static', filename='css/styles.css') }}">
 </head>
-<body>
+        <body>
             <center>
             <h1>Background Eraser</h1>
             </center>
@@ -25,9 +25,10 @@
                 <button id="undoStroke">Undo Brush Stroke</button>
                 <button id="undoErase">Undo Image Erase</button>
                 <button id="processImage">Process Image</button>
+                <a href="#" class="button" id="saveImage" download="photo_enhanced">Save Image</a>
                 <a href="{{ url_for('index') }}" class="upload-another-image">Upload another image</a>
             </div>
 
-    <script src="{{ url_for('serve_static', filename='js/scripts.js') }}"></script>
-</body>
+            <script src="{{ url_for('serve_static', filename='js/eraser_scripts.js') }}"></script>
+        </body>
 </html>
