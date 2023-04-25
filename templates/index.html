@@ -13,6 +13,7 @@
     </div>
     <div id="image-placeholder" style="text-align: center;"></div>
     <form action="/upload" method="POST" enctype="multipart/form-data">
+        <label for="photo" class="custom-file-upload">Upload Image</label>
         <input type="file" name="photo" id="photo" accept="image/*,.pdf", onchange="previewImage();">
         <div>
             <button type="submit" name="action" value="erase" class="hide">Erase</button>
