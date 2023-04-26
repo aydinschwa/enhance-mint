@@ -59,11 +59,11 @@
   gap: 10px; /* Add space between controls */
 }
   
-  canvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
 
   #drawCanvas {
     opacity: 0.5;
@@ -132,4 +132,8 @@
     }
   }
 
+  input[type="range"] {
+    width: 35%;
+    height: 10%;
+}
   
