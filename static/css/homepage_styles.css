@@ -1,47 +1,73 @@
+
+/* Set background color and font family */
 body {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-family: "Arial", sans-serif;
-  background-color: #f0f0f0;
-  color: #333;
+    background-color: #F5F5F5;
+    font-family: Arial, sans-serif;
 }
 
-#image-placeholder {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 500px;
-  height: 500px;
-  background-color: black;
-  margin-bottom: 10px;
+/* Center the logo */
+.header {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
 }
 
-h1 {
-  text-align: center;
+/* Style the logo */
+img {
+    max-width: 100%;
 }
 
+/* Style the upload form */
 form {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 30px;
 }
 
+/* Style the file upload input */
 input[type="file"] {
-  margin-bottom: 1rem;
-  padding: 0.5rem 1rem;
-  border-radius: 0.25rem;
-  text-align: center
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
 }
 
-button[type="submit"] {
-  padding: 0.5rem 1rem;
-  border-radius: 0.25rem;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  cursor: pointer;
-  margin-right: 10px; 
-  }
+.custom-file-upload {
+    border: none;
+    background-color: #2D6F7C;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 20px;
+    padding: 12px 20px;
+    transition: all 0.2s ease-in-out;
+    border-radius: 5px;
+}
+
+.custom-file-upload:hover {
+    background-color: #fff;
+    color: #2D6F7C;
+    border: 2px solid #2D6F7C;
+}
+
+/* Style the buttons */
+button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    border: none;
+    color: #FFFFFF;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Hide the buttons initially */
+.hide {
+    display: none;
+}
+
