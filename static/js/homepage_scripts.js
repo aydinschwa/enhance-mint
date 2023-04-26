@@ -1,3 +1,6 @@
+const maxImageWidth = window.myAppConfig.maxImageWidth;
+const maxImageHeight = window.myAppConfig.maxImageHeight;
+
 function previewImage() {
     const photoInput = document.getElementById("photo");
     const imagePlaceholder = document.getElementById("image-placeholder");
@@ -11,7 +14,7 @@ function previewImage() {
             imagePlaceholder.style.backgroundColor = 'transparent';
             imagePlaceholder.innerHTML =
             `<img src="${event.target.result}"
-              style="max-width: 500px; max-height: 500px;
+              style="max-width: ${maxImageWidth}px; max-height: ${maxImageHeight}px;
               display: inline-block; vertical-align: middle;">`;
             buttons.forEach(button => button.classList.remove('hide'));
             label.textContent = 'Upload Different Image';

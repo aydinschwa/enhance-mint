@@ -1,3 +1,5 @@
+const maxImageWidth = window.myAppConfig.maxImageWidth;
+const maxImageHeight = window.myAppConfig.maxImageHeight;
 const amplifyEdgeButton = document.getElementById("amplify_edges");
 const blurButton = document.getElementById("blur");
 const smoothButton = document.getElementById("smooth");
@@ -10,21 +12,19 @@ const autoEnhanceButton = document.getElementById("auto_enhance");
 const enhanceButtons = document.querySelectorAll("button");
 const saveImageButton = document.getElementById("saveImage");
 const imgElement = document.querySelector("img");
-const maxWidth = 700; //TODO: put these in a config file somewhere
-const maxHeight = 700;//TODO: put these in a config file somewhere
 const imageUrl = imgElement.getAttribute("src");
 
 const imgRatio = imgElement.width / imgElement.height;
 let newWidth = imgElement.width;
 let newHeight = imgElement.height;
 
-if (imgElement.width > maxWidth) {
-newWidth = maxWidth;
+if (imgElement.width > maxImageWidth) {
+newWidth = maxImageWidth;
 newHeight = newWidth / imgRatio;
 }
 
-if (newHeight > maxHeight) {
-newHeight = maxHeight;
+if (newHeight > maxImageHeight) {
+newHeight = maxImageHeight;
 newWidth = newHeight * imgRatio;
 }
 

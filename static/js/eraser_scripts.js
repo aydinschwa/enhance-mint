@@ -1,11 +1,11 @@
+const maxImageWidth = window.myAppConfig.maxImageWidth;
+const maxImageHeight = window.myAppConfig.maxImageHeight;
 const imageCanvas = document.getElementById("imageCanvas");
 const drawCanvas = document.getElementById("drawCanvas");
 const imageCtx = imageCanvas.getContext("2d");
 const drawCtx = drawCanvas.getContext("2d");
 const previewCanvas = document.getElementById("previewCanvas");
 const previewCtx = previewCanvas.getContext("2d");
-const maxCanvasWidth = 700; //TODO: put these in a config file somewhere
-const maxCanvasHeight = 700; //TODO: put these in a config file somewhere
 const brushSizeInput = document.getElementById("brushSize");
 const undoStrokeButton = document.getElementById("undoStroke");
 const undoImageButton = document.getElementById("undoErase");
@@ -28,13 +28,13 @@ image.onload = () => {
   let newWidth = image.width;
   let newHeight = image.height;
   
-  if (image.width > maxCanvasWidth) {
-    newWidth = maxCanvasWidth;
+  if (image.width > maxImageWidth) {
+    newWidth = maxImageWidth;
     newHeight = newWidth / imgRatio;
   }
 
-  if (newHeight > maxCanvasHeight) {
-    newHeight = maxCanvasHeight;
+  if (newHeight > maxImageHeight) {
+    newHeight = maxImageHeight;
     newWidth = newHeight * imgRatio;
   }
 
