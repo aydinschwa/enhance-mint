@@ -43,6 +43,7 @@ input[type="file"] {
     margin-bottom: 20px;
     padding: 12px 20px;
     transition: all 0.2s ease-in-out;
+    border-radius: 5px;
 }
 
 .custom-file-upload:hover {
@@ -54,11 +55,15 @@ input[type="file"] {
 /* Style the buttons */
 button {
     padding: 10px 20px;
-    background-color: #2D6F7C;
+    background-color: #007bff;
     border: none;
     color: #FFFFFF;
     border-radius: 5px;
     cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
 }
 
 /* Hide the buttons initially */
@@ -66,16 +71,3 @@ button {
     display: none;
 }
 
-/* Style the image preview container
-#image-placeholder {
-    width: 80%;
-    height: 300px;
-    border-radius: 5px;
-    border: 2px dashed #CCCCCC;
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-    color: #CCCCCC;
-} */
