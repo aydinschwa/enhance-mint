@@ -10,6 +10,26 @@ const autoEnhanceButton = document.getElementById("auto_enhance");
 const enhanceButtons = document.querySelectorAll("button");
 const saveImageButton = document.getElementById("saveImage");
 const imgElement = document.querySelector("img");
+const maxWidth = 700; //TODO: put these in a config file somewhere
+const maxHeight = 700;//TODO: put these in a config file somewhere
+const imageUrl = imgElement.getAttribute("src");
+
+const imgRatio = imgElement.width / imgElement.height;
+let newWidth = imgElement.width;
+let newHeight = imgElement.height;
+
+if (imgElement.width > maxWidth) {
+newWidth = maxWidth;
+newHeight = newWidth / imgRatio;
+}
+
+if (newHeight > maxHeight) {
+newHeight = maxHeight;
+newWidth = newHeight * imgRatio;
+}
+
+imgElement.width = newWidth;
+imgElement.height = newHeight;
 
 enhanceButtons.forEach((button) => {
     if (button.id !== "saveImage") {
@@ -42,5 +62,5 @@ enhanceButtons.forEach((button) => {
 saveImageButton.addEventListener('click', function() {
     const image = document.querySelector('img');
     saveImageButton.href = image.src;
-    saveImageButton.download = `${image.src}`;
+    saveImageButton.download = 'photo_enhanced';
 });
