@@ -1,5 +1,5 @@
-const maxImageWidth = window.myAppConfig.maxImageWidth;
-const maxImageHeight = window.myAppConfig.maxImageHeight;
+const maxImageWidth = window.appConfig.maxImageWidth;
+const maxImageHeight = window.appConfig.maxImageHeight;
 const amplifyEdgeButton = document.getElementById("amplify_edges");
 const blurButton = document.getElementById("blur");
 const smoothButton = document.getElementById("smooth");

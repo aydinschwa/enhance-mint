@@ -1,5 +1,5 @@
-const maxImageWidth = window.myAppConfig.maxImageWidth;
-const maxImageHeight = window.myAppConfig.maxImageHeight;
+const maxImageWidth = window.appConfig.maxImageWidth;
+const maxImageHeight = window.appConfig.maxImageHeight;
 const imageCanvas = document.getElementById("imageCanvas");
 const drawCanvas = document.getElementById("drawCanvas");
 const imageCtx = imageCanvas.getContext("2d");

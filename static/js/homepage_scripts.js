@@ -1,5 +1,5 @@
-const maxImageWidth = window.myAppConfig.maxImageWidth;
-const maxImageHeight = window.myAppConfig.maxImageHeight;
+const maxImageWidth = window.appConfig.maxImageWidth;
+const maxImageHeight = window.appConfig.maxImageHeight;
 
 function previewImage() {
     const photoInput = document.getElementById("photo");
