@@ -9,6 +9,15 @@ from shutil import copyfile
 from enhancer import Picture
 
 app = Flask(__name__)
+
+def make_directory(directory):
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+
+make_directory("uploads/")
+make_directory("exported/")
+make_directory("output/")
+
 app.config["UPLOADED_PHOTOS_DEST"] = "uploads/"
 app.config["EXPORT_FOLDER"] = "exported/"
 app.config["OUTPUT_FOLDER"] = "output/"
