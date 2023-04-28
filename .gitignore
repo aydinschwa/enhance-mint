@@ -1,7 +1,8 @@
 venv
-exported
-output
+exported/*
+output/*
 uploads
 __pycache__
 models/lama/outputs/*
 .DS_Store
+.vercel
