@@ -11,6 +11,10 @@ EnhanceMINT is an AI-powered web application that aims to make high-quality phot
 
 ## Installation
 
+0. Ensure you have git-lfs enabled:
+
+We intend to host the model in the cloud, but haven't implemented this yet. In the meantime, we're hosting the model using git Large File Storage. If you don't already have git-lfs, please follow the instructions set it up [here](https://git-lfs.com/).
+
 1. Clone the repository:
 
 ```bash
@@ -28,10 +32,6 @@ cd EnhanceMINT
 ```bash
 pip install -r requirements.txt
 ```
-
-This should allow you to run the app. However, the LaMa object eraser model is too large to host on Github and must be downloaded separately. This can be done by following the instructions [here](https://github.com/advimman/lama).
-
-We intend to host the model in the cloud, but haven't implemented this yet. If you choose not to download the model, the rest of the app still works as intended.
 
 4. Run the application:
 
