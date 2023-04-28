@@ -12,7 +12,7 @@ app = Flask(__name__)
 
 def make_directory(directory):
     if not os.path.exists(directory):
-        os.makedir(directory)
+        os.mkdir(directory)
 
 make_directory("uploads/")
 make_directory("exported/")
