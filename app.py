@@ -10,6 +10,9 @@ from enhancer import Picture
 
 app = Flask(__name__)
 
+# Install required system-level packages
+subprocess.run(["sudo", "apt-get", "install", "-y", "libgl1-mesa-dev"], check=True)
+
 def make_directory(directory):
     if not os.path.exists(directory):
         os.mkdir(directory)
