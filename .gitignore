@@ -8,3 +8,4 @@ models/lama/outputs/*
 .DS_Store
 .idea
 .elasticbeanstalk
+.ebextensions
