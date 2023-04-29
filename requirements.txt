@@ -17,6 +17,7 @@ numpy
 easydict==1.9.0
 scikit-image
 scikit-learn
+libgl1-mesa-dev
 opencv-python
 joblib
 matplotlib
