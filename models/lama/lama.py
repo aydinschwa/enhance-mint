@@ -85,8 +85,6 @@ def make_prediction(model, predict_config, stack_pos):
                     cur_res = cur_res[:orig_height, :orig_width]
 
         cur_res = np.clip(cur_res * 255, 0, 255).astype('uint8')
-        # cur_res = cv2.cvtColor(cur_res, cv2.COLOR_RGB2BGR)
-        # cv2.imwrite(cur_out_fname, cur_res)
 
 if __name__ == "__main__":
     pass 

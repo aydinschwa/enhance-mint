@@ -19,7 +19,6 @@ os.environ['MKL_NUM_THREADS'] = '1'
 os.environ['VECLIB_MAXIMUM_THREADS'] = '1'
 os.environ['NUMEXPR_NUM_THREADS'] = '1'
 
-import cv2
 import hydra
 import numpy as np
 import torch
@@ -89,8 +88,6 @@ def main(predict_config: OmegaConf):
                         cur_res = cur_res[:orig_height, :orig_width]
 
             cur_res = np.clip(cur_res * 255, 0, 255).astype('uint8')
-            cur_res = cv2.cvtColor(cur_res, cv2.COLOR_RGB2BGR)
-            cv2.imwrite(cur_out_fname, cur_res)
 
     except KeyboardInterrupt:
         LOGGER.warning('Interrupted by user')
