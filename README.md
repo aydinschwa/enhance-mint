@@ -1,6 +1,6 @@
-# EnhanceMINT
+# EnhanceMint
 
-EnhanceMINT is an AI-powered web application that aims to make high-quality photo enhancement features available to the general public. Currently the app allows users to erase unwanted objects or enhance the quality of their images.
+EnhanceMint is an AI-powered web application that aims to make high-quality photo enhancement features available to the general public. Currently the app allows users to erase unwanted objects or enhance the quality of their images.
 
 ## Features
 

@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Uploaded Image</title>
-    <link rel="stylesheet" href="{{ url_for('serve_static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('serve_static', filename='css/eraser_styles.css') }}">
 </head>
         <body>
-            <center>
-            <h1>Background Eraser</h1>
-            </center>
+            <div class="toolbar">
+                <img src="../static/images/logo.png" alt="EnhanceMint logo">
+            </div>
             <br>
             <center>
             <div id="canvasContainer" data-image-url="{{ url_for('serve_image', filename=filename) }}">

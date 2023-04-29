@@ -7,10 +7,10 @@
     <link rel="stylesheet" href="{{ url_for('serve_static', filename='css/homepage_styles.css') }}">
 </head>
 <body>
-    <h1>Photo Enhancer</h1>
-    <div>
-    <img src="{{ url_for('serve_image', filename=filename) }}">
+    <div class="toolbar">
+        <img src="../static/images/logo.png" alt="EnhanceMint logo">
     </div>
+    <img src="{{ url_for('serve_image', filename=filename) }}">
     <div>
     <button id="amplify_edges">Amplify Edges</button>
     <button id="blur">Blur</button>

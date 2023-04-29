@@ -20,8 +20,9 @@ configure_uploads(app, photos)
 # Clear output directory
 files = os.listdir(app.config["OUTPUT_FOLDER"])
 for file in files:
-    file_path = os.path.join(app.config["OUTPUT_FOLDER"], file)
-    os.unlink(file_path)
+    if file != ".gitignore":
+        file_path = os.path.join(app.config["OUTPUT_FOLDER"], file)
+        os.unlink(file_path)
 
 picture_instance = None
 RUN_MODEL = True

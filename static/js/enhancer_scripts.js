@@ -11,7 +11,7 @@ const darkenButton = document.getElementById("darken");
 const autoEnhanceButton = document.getElementById("auto_enhance");
 const enhanceButtons = document.querySelectorAll("button");
 const saveImageButton = document.getElementById("saveImage");
-const imgElement = document.querySelector("img");
+const imgElement = document.querySelectorAll("img")[1];
 const imageUrl = imgElement.getAttribute("src");
 
 const imgRatio = imgElement.width / imgElement.height;

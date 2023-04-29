@@ -1,21 +1,27 @@
-/* Reset default styles */
-* {
+body {
+    background-color: #3C3C3C; 
+    font-family: Arial, sans-serif;
     margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
+}
+
+/* Style the toolbar */
+.toolbar {
+    background-color: #000000;
+    display: flex;
+    justify-content: flex-start;
+    padding: 10px;
+}
+
+/* Style the logo */
+img {
+    max-width: 30%;
+}
   
-  body {
-    font-family: "Arial", sans-serif;
-    background-color: #f0f0f0;
-    color: #333;
-  }
-  
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 30px;
-  }
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 30px;
+}
   
   header {
     display: flex;
