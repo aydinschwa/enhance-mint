@@ -13,7 +13,7 @@ EnhanceMint is an AI-powered web application that aims to make high-quality phot
 
 0. Ensure you have git-lfs enabled:
 
-We intend to host the model in the cloud, but haven't implemented this yet. In the meantime, we're hosting the model using git Large File Storage. If you don't already have git-lfs, please follow the instructions set it up [here](https://git-lfs.com/).
+We intend to host the model in the cloud, but haven't implemented this yet. In the meantime, we're hosting the model using git Large File Storage. If you don't already have git-lfs, please follow the instructions and set it up [here](https://git-lfs.com/).
 
 1. Clone the repository:
 
