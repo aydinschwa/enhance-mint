@@ -9,3 +9,8 @@ models/lama/outputs/*
 .idea
 .elasticbeanstalk
 .ebextensions
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
