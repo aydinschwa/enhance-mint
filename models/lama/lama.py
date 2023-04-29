@@ -2,7 +2,6 @@ import logging
 import os
 import sys
 import traceback
-# import cv2
 import hydra
 import numpy as np
 import torch
