@@ -6,7 +6,6 @@ from flask import Flask, render_template, request, redirect, url_for, send_from_
 from flask_uploads import UploadSet, configure_uploads, ALL
 from werkzeug.utils import secure_filename
 from shutil import copyfile
-from enhancer import Picture
 
 app = Flask(__name__)
 app.config["UPLOADED_PHOTOS_DEST"] = "uploads/"
@@ -108,8 +107,6 @@ def process():
     if RUN_MODEL:
         make_prediction(model, predict_config, stack_position) 
 
-    # Call the shell script with the input image directory and output directory
-    #TODO: change name of image output to actually be output_image_name
     else:
         subprocess.run([script_path, input_image_dir, output_dir], check=True)
 
@@ -126,27 +123,7 @@ def process():
 
 @app.route("/enhancer/<filename>")
 def enhancer(filename):
-    global picture_instance
-    uploaded_image_path = os.path.join(app.config["UPLOADED_PHOTOS_DEST"], filename)
-    picture_instance = Picture(uploaded_image_path)
     return render_template("enhancer.html", filename=filename)
-
-
-@app.route("/enhance/<function_name>", methods=["POST"])
-def enhance(function_name):
-    global picture_instance
-    if not picture_instance:
-        return {"error": "No image found"}, 404
-
-    if hasattr(picture_instance, function_name):
-        enhancement_function = getattr(picture_instance, function_name)
-        enhancement_function()
-        img_data = io.BytesIO()
-        picture_instance.img.save(img_data, format="PNG")
-        img_data = base64.b64encode(img_data.getvalue()).decode("utf-8")
-        return {"imgData": img_data}
-    else:
-        return {"error": f"Invalid function: {function_name}"}, 400
 
 
 if __name__ == "__main__":

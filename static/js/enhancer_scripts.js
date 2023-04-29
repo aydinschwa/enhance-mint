@@ -1,19 +1,18 @@
 const maxImageWidth = window.appConfig.maxImageWidth;
 const maxImageHeight = window.appConfig.maxImageHeight;
-const amplifyEdgeButton = document.getElementById("amplify_edges");
-const blurButton = document.getElementById("blur");
-const smoothButton = document.getElementById("smooth");
-const increaseColorButton = document.getElementById("increase_color");
-const increaseContrastButton = document.getElementById("increase_contrast");
-const sharpenButton = document.getElementById("sharpen");
-const brightenButton = document.getElementById("brighten");
-const darkenButton = document.getElementById("darken");
-const autoEnhanceButton = document.getElementById("auto_enhance");
-const enhanceButtons = document.querySelectorAll("button");
-const saveImageButton = document.getElementById("saveImage");
-const imgElement = document.querySelectorAll("img")[1];
+const imgElement = document.querySelector("#image-container img");
 const imageUrl = imgElement.getAttribute("src");
+const saveImageButton = document.getElementById("saveImage");
+const brightnessSlider = document.getElementById("brightness");
+const saturationSlider = document.getElementById("saturation");
+const exposureSlider = document.getElementById("exposure");
+const sharpenSlider = document.getElementById("sharpen");
+const vibranceSlider = document.getElementById("vibrance");
+const noiseSlider = document.getElementById("noise");
+const sepiaSlider = document.getElementById("sepia");
+const resetButton = document.getElementById("resetFilters")
 
+// resize image if it's larger than maxWidth, maxHeight 
 const imgRatio = imgElement.width / imgElement.height;
 let newWidth = imgElement.width;
 let newHeight = imgElement.height;
@@ -31,36 +30,55 @@ newWidth = newHeight * imgRatio;
 imgElement.width = newWidth;
 imgElement.height = newHeight;
 
-enhanceButtons.forEach((button) => {
-    if (button.id !== "saveImage") {
-    button.addEventListener("click", () => {
-        const function_name = button.id;
-
-        fetch(`/enhance/${function_name}`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            }
-        })
-        .then(response => {
-            if (!response.ok) {
-                console.log(response)
-                throw new Error("An error occurred");
-            }
-            return response.json();
-        })
-        .then(data => {
-            imgElement.src = `data:image/png;base64,${data.imgData}`;
-        })
-        .catch(error => {
-            console.error("Error:", error);
-        });
-    });
-    }
-});
-
 saveImageButton.addEventListener('click', function() {
-    const image = document.querySelector('img');
-    saveImageButton.href = image.src;
+    saveImageButton.href = imgElement.src;
     saveImageButton.download = 'photo_enhanced';
 });
+
+function applyEffects() {
+
+    const imgElement = document.querySelector("#image-container img") || document.querySelector("#image-container canvas");
+    Caman(imgElement, function () {
+      this.revert(false);
+      this.brightness(brightnessSlider.value);
+      this.vibrance(vibranceSlider.value);
+      this.saturation(saturationSlider.value);
+      this.exposure(exposureSlider.value);
+      this.sharpen(sharpenSlider.value);
+      this.noise(noiseSlider.value);
+      this.sepia(sepia.value);
+      this.render();
+    });
+  }
+  
+// Event listeners for sliders
+brightnessSlider.addEventListener("change", applyEffects);
+saturationSlider.addEventListener("change", applyEffects);
+exposureSlider.addEventListener("change", applyEffects);
+sharpenSlider.addEventListener("change", applyEffects);
+vibranceSlider.addEventListener("change", applyEffects);
+noiseSlider.addEventListener("change", applyEffects);
+sepiaSlider.addEventListener("change", applyEffects);
+
+
+resetButton.addEventListener("click", () => {
+    brightnessSlider.value = 0;
+    saturationSlider.value = 0;
+    exposureSlider.value = 0;
+    sharpenSlider.value = 0;
+    vibranceSlider.value = 0;
+    noiseSlider.value = 0;
+    sepiaSlider.value = 0;
+    const imgElement = document.querySelector("#image-container img") || document.querySelector("#image-container canvas");
+    Caman(imgElement, function () {
+      this.revert(false);
+      this.brightness(brightnessSlider.value);
+      this.vibrance(vibranceSlider.value);
+      this.saturation(saturationSlider.value);
+      this.exposure(exposureSlider.value);
+      this.sharpen(sharpenSlider.value);
+      this.noise(noiseSlider.value);
+      this.sepia(sepia.value);
+      this.render();
+    });
+})

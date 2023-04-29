@@ -9,22 +9,47 @@
 <body>
     <div class="toolbar">
         <img src="../static/images/logo.png" alt="EnhanceMint logo">
+    </div> 
+    <div id="image-container">
+        <img src="{{ url_for('serve_image', filename=filename) }}">
     </div>
-    <img src="{{ url_for('serve_image', filename=filename) }}">
+    <div class="sliders">
+    
+    <label for="brightness">Brightness</label>
+    <input type="range" min="-100" max="100" step="1" value="0" id="brightness">
+    <br>
+
+    <label for="saturation">Saturation</label>
+    <input type="range" min="-100" max="100" step="1" value="0" id="saturation">
+    <br>
+    
+    <label for="exposure">Exposure</label>
+    <input type="range" min="-100" max="100" step="1" value="0" id="exposure">
+    <br>
+
+    <label for="sharpen">Sharpen</label>
+    <input type="range" min="-100" max="100" step="1" value="0" id="sharpen">
+    <br>
+
+    <label for="vibrance">Vibrance</label>
+    <input type="range" min="-100" max="100" step="1" value="0" id="vibrance">
+    <br>
+
+    <label for="noise">Noise</label>
+    <input type="range" min="-100" max="100" step="1" value="0" id="noise">
+    <br>
+
+    <label for="sepia">Sepia</label>
+    <input type="range" min="-100" max="100" step="1" value="0" id="sepia">
+    <br>
+
+    </div>
     <div>
-    <button id="amplify_edges">Amplify Edges</button>
-    <button id="blur">Blur</button>
-    <button id="smooth">Smooth</button>
-    <button id="increase_color">Increase Color</button>
-    <button id="increase_contrast">Increase Contrast</button>
-    <button id="sharpen">Sharpen</button>
-    <button id="brighten">Brighten</button>
-    <button id="darken">Darken</button>
-    <button id="auto_enhance">Auto Enhance</button>
-    <button id="back">Undo</button>
+        <button id="resetFilters">Reset Filters</button>
     </div>
     <a href="#" class="button" id="saveImage" download="photo_enhanced">Save Image</a>
     <a href="{{ url_for('index') }}" class="upload-another-image">Upload another image</a>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/camanjs/4.1.2/caman.full.min.js"></script>
     <script src="{{ url_for('serve_static', filename='js/config.js') }}"></script>
     <script src="{{ url_for('serve_static', filename='js/enhancer_scripts.js') }}"></script>
 </body>
