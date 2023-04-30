@@ -6,11 +6,18 @@ from flask import Flask, render_template, request, redirect, url_for, send_from_
 from flask_uploads import UploadSet, configure_uploads, ALL
 from werkzeug.utils import secure_filename
 from shutil import copyfile
+import sys
 
 app = Flask(__name__)
 app.config["UPLOADED_PHOTOS_DEST"] = "uploads/"
 app.config["EXPORT_FOLDER"] = "exported/"
 app.config["OUTPUT_FOLDER"] = "output/"
+
+# default to cpu unless cuda is set with command line 
+if len(sys.argv) > 1:
+    device = sys.argv[1]
+else:
+    device = "cpu"
 
 # Configure file uploads
 photos = UploadSet("photos", ALL)
@@ -28,7 +35,7 @@ RUN_MODEL = True
 # set model as global variable
 if RUN_MODEL:
     from models.lama.lama import get_model_instance, make_prediction
-    model, predict_config = get_model_instance()
+    model, predict_config = get_model_instance(compute_device=device)
 
 @app.route("/static/<path:filename>")
 def serve_static(filename):

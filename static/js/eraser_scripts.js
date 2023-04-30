@@ -223,9 +223,9 @@ function toggleSpinner(visible) {
 
 processImageButton.addEventListener("click", async () => {
   toggleSpinner(true);
-  saveImage(imageCanvas, "image/png", "original_image.png");
+  await saveImage(imageCanvas, "image/png", "original_image.png");
   const preparedCanvas = prepareCanvasForExport(drawCanvas);
-  saveImage(preparedCanvas, "image/png", "original_image_mask.png");
+  await saveImage(preparedCanvas, "image/png", "original_image_mask.png");
 
   try {
     photoIndex += 1;

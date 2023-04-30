@@ -27,13 +27,13 @@ os.environ['NUMEXPR_NUM_THREADS'] = '1'
 
 LOGGER = logging.getLogger(__name__)
 
-def get_model_instance():
+def get_model_instance(compute_device):
 
     with open(os.path.join("models/lama/configs", "default.yaml")) as f:
         predict_config = OmegaConf.create(yaml.safe_load(f))
+        predict_config.device = compute_device
 
     register_debug_signal_handlers()  # kill -10 <pid> will result in traceback dumped into log
-
 
     train_config_path = os.path.join(predict_config.model.path, 'config.yaml')
     with open(train_config_path, 'r') as f:
@@ -45,7 +45,7 @@ def get_model_instance():
     checkpoint_path = os.path.join(predict_config.model.path, 
                                     'models', 
                                     predict_config.model.checkpoint)
-    model = load_checkpoint(train_config, checkpoint_path, strict=False, map_location='cpu')
+    model = load_checkpoint(train_config, checkpoint_path, strict=False, map_location=compute_device)
     model.freeze()
 
     if not predict_config.indir.endswith('/'):
