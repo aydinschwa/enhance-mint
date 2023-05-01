@@ -141,9 +141,9 @@ async function loadPreviousImage() {
       body: data,
     });
 
-    const blob = await response.blob();
-    const imageUrl = URL.createObjectURL(blob);
-    image.src = imageUrl;
+    const nextData = await response.json();
+    const outputImageB64 = nextData.outputImageB64;
+    image.src = "data:image/png;base64," + outputImageB64;
 
     // Clear the draw canvas
     drawCtx.clearRect(0, 0, drawCanvas.width, drawCanvas.height);
