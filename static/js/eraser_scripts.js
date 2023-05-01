@@ -1,5 +1,6 @@
 const maxImageWidth = window.appConfig.maxImageWidth;
 const maxImageHeight = window.appConfig.maxImageHeight;
+const getDeviceId = window.appConfig.getDeviceId;
 const imageCanvas = document.getElementById("imageCanvas");
 const drawCanvas = document.getElementById("drawCanvas");
 const imageCtx = imageCanvas.getContext("2d");
@@ -16,6 +17,7 @@ const r = 255;
 const g = 102;
 const b = 102; 
 const brushColor = `rgb(${r}, ${g}, ${b})`;
+const deviceId = getDeviceId();
 
 const canvasContainer = document.getElementById("canvasContainer");
 const imageUrl = canvasContainer.getAttribute("data-image-url");
@@ -123,10 +125,21 @@ saveImageButton.addEventListener("click", () => {
 })
 
 async function loadPreviousImage() {
+  
   try {
     if (photoIndex !== 0) {photoIndex -= 1;}
 
-    const response = await fetch(`/output/original_image_mask${photoIndex}.png`);
+    const data = new URLSearchParams();
+    data.append("photoIndex", photoIndex);
+    data.append("deviceId", getDeviceId());
+
+    const response = await fetch("/request_image", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: data,
+    });
 
     const blob = await response.blob();
     const imageUrl = URL.createObjectURL(blob);
@@ -163,6 +176,7 @@ async function saveImage(canvas, imgType, imgName) {
     data.append("imgData", imageData);
     data.append("imgType", imgType);
     data.append("imgName", imgName);
+    data.append("deviceId", getDeviceId())
 
     try {
     const response = await fetch("/export", {
@@ -230,7 +244,8 @@ processImageButton.addEventListener("click", async () => {
   try {
     photoIndex += 1;
     const posData = new URLSearchParams();
-    posData.append("stackPos", photoIndex);
+    posData.append("photoIndex", photoIndex);
+    posData.append("deviceId", deviceId);
     const response = await fetch("/process", {
       method: "POST",
       headers: {

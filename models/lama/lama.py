@@ -54,18 +54,14 @@ def get_model_instance(compute_device):
     return model, predict_config
 
 
-def make_prediction(model, predict_config, stack_pos):
-    out_ext = predict_config.get('out_ext', '.png')
+def make_prediction(model, predict_config, image_path, export_path):
     device = torch.device(predict_config.device)
     if not predict_config.get('refine', False):
         model.to(device)
+    predict_config.indir = export_path
     dataset = make_default_val_dataset(predict_config.indir, **predict_config.dataset)
     for img_i in tqdm.trange(len(dataset)):
-        mask_fname = dataset.mask_filenames[img_i]
-        cur_out_fname = os.path.join(
-            predict_config.outdir, 
-            os.path.splitext(mask_fname[len(predict_config.indir):])[0] + stack_pos + out_ext
-        )
+        cur_out_fname = image_path
         os.makedirs(os.path.dirname(cur_out_fname), exist_ok=True)
         batch = default_collate([dataset[img_i]])
         if predict_config.get('refine', False):

@@ -8,10 +8,10 @@
 </head>
 <body>
     <div class="toolbar">
-        <img src="../static/images/logo.png" alt="EnhanceMint logo">
+        <img src="/static/images/logo.png" alt="EnhanceMint logo">
     </div> 
     <div id="image-container">
-        <img src="{{ url_for('serve_image', filename=filename) }}">
+        <img src="{{ url_for('serve_image', filename=filename, device_id=device_id) }}">
     </div>
     <div class="sliders">
     
@@ -50,7 +50,7 @@
     <a href="#" class="button" id="saveImage" download="photo_enhanced">Save Image</a>
     <a href="{{ url_for('index') }}" class="upload-another-image">Upload another image</a>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/camanjs/4.1.2/caman.full.min.js"></script>
-    <script src="{{ url_for('serve_static', filename='js/config.js') }}"></script>
+    <script src="{{ url_for('serve_static', filename='js/utils.js') }}"></script>
     <script src="{{ url_for('serve_static', filename='js/enhancer_scripts.js') }}"></script>
 </body>
 </html>

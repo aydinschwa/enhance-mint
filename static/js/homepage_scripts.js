@@ -1,7 +1,13 @@
 const maxImageWidth = window.appConfig.maxImageWidth;
 const maxImageHeight = window.appConfig.maxImageHeight;
+const getDeviceId = window.appConfig.getDeviceId;
+const deviceId = getDeviceId();
 
 function previewImage() {
+
+    var deviceElement = document.getElementById("deviceId");
+    deviceElement.value = deviceId;
+
     const photoInput = document.getElementById("photo");
     const imagePlaceholder = document.getElementById("image-placeholder");
     const buttons = document.querySelectorAll('button.hide');
