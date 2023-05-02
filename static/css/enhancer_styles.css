@@ -15,7 +15,8 @@ body {
 
 /* Style the logo */
 .logo {
-    height: 112px;
+    height: 130px;
+    margin-left: 15px;
 }
 
 /* Style the upload form */
