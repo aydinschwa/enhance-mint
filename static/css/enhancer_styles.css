@@ -1,78 +1,78 @@
-/* Modern styles for the Photo Enhancer page */
-
-/* Header styles */
-h1 {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  font-size: 4rem;
-  color: #333;
-  text-align: center;
-  margin: 2em 0;
-}
-
-/* Image container styles */
-div img {
-  display: block;
-  margin: 0 auto;
-  max-width: 100%;
-  padding: 1rem;
-  border-radius: 0.5rem;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-button {
-  display: inline-block;
-  margin: 0.5rem;
-  padding: 1rem 2rem;
-  background-color: #333;
-  color: #fff;
-  border-radius: 0.5rem;
-  text-align: center;
-  text-decoration: none;
-  font-size: 1rem;
-  font-weight: bold;
-  border: none;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-}
-
-div {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 1rem 0;
-}
-
-a.button {
-  display: inline-block;
-  margin: 1rem;
-  padding: 1rem 2rem;
-  background-color: #333;
-  color: #fff;
-  border-radius: 0.5rem;
-  text-align: center;
-  text-decoration: none;
-  font-size: 1rem;
-  font-weight: bold;
-  border: none;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-a.button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-}
-a.upload-another-image {
-  display: block;
-  margin-top: 1rem;
-  text-align: center;
-  text-decoration: none;
-  color: #333;
-}
-
+/* Set background color and font family */
 body {
-  background-color: #f2f2f2;
+    background-color: #3C3C3C; 
+    font-family: Arial, sans-serif;
+    margin: 0;
+}
+
+/* Style the toolbar */
+.toolbar {
+    background-color: #000000;
+    display: flex;
+    justify-content: flex-start;
+    padding: 10px;
+}
+
+/* Style the logo */
+img {
+    max-width: 30%;
+}
+
+/* Style the upload form */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Style the file upload input */
+input[type="file"] {
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+}
+
+.custom-file-upload {
+    border: none;
+    background-color: #2D6F7C;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 20px;
+    padding: 12px 20px;
+    transition: all 0.2s ease-in-out;
+    border-radius: 5px;
+}
+
+.custom-file-upload:hover {
+    background-color: #fff;
+    color: #2D6F7C;
+    border: 2px solid #2D6F7C;
+}
+
+/* Style the buttons */
+button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    border: none;
+    color: #FFFFFF;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Hide the buttons initially */
+.hide {
+    display: none;
+}
+
+/* style the sliders */
+input[type="range"] {
+    width: 35%;
+    height: 10%;
 }
