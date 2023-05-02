@@ -18,6 +18,10 @@ img {
     max-width: 30%;
 }
 
+.logo {
+    height: 112px;
+}
+
 /* Style the upload form */
 form {
     display: flex;

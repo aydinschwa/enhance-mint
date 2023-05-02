@@ -8,53 +8,67 @@
 </head>
 <body>
     <div class="toolbar">
-        <img src="/static/images/logo.png" alt="EnhanceMint logo">
-    </div> 
-    <div id="image-container">
-        <img src="{{ url_for('serve_image', filename=filename, device_id=device_id) }}">
+        <img class="logo" src="/static/images/logo.png" alt="EnhanceMint logo" onclick="location.href='{{ url_for('index') }}'">
     </div>
-    <div class="sliders">
-    
-    <label for="brightness">Brightness</label>
-    <input type="range" min="-100" max="100" step="1" value="0" id="brightness">
-    <br>
-
-    <label for="saturation">Saturation</label>
-    <input type="range" min="-100" max="100" step="1" value="0" id="saturation">
-    <br>
-    
-    <label for="exposure">Exposure</label>
-    <input type="range" min="-100" max="100" step="1" value="0" id="exposure">
-    <br>
-
-    <label for="sharpen">Sharpen</label>
-    <input type="range" min="-100" max="100" step="1" value="0" id="sharpen">
-    <br>
-
-    <label for="vibrance">Vibrance</label>
-    <input type="range" min="-100" max="100" step="1" value="0" id="vibrance">
-    <br>
-
-    <label for="sepia">Sepia</label>
-    <input type="range" min="-100" max="100" step="1" value="0" id="sepia">
-    <br>
-
+    <div class="left-column">
+        <div id="image-container">
+            <img src="{{ url_for('serve_image', filename=filename, device_id=device_id) }}">
+        </div>
+        <div class="other_buttons_div">
+            <a href="#" id="saveImage" download="photo_enhanced">
+                <button class="other_buttons">Save Image</button>
+            </a>
+            <button class="other_buttons" onclick="location.href='{{ url_for('index') }}'">Upload a different image</button>
+        </div>
     </div>
-    <div>
-        <button id="resetFilters">Reset Filters</button>
+    <div class="right-column">
+        <div class="sliders">
+
+            <label for="brightness">Brightness</label>
+            <input type="range" min="-100" max="100" step="1" value="0" id="brightness">
+            <br>
+
+            <label for="saturation">Saturation</label>
+            <input type="range" min="-100" max="100" step="1" value="0" id="saturation">
+            <br>
+
+            <label for="exposure">Exposure</label>
+            <input type="range" min="-100" max="100" step="1" value="0" id="exposure">
+            <br>
+
+            <label for="sharpen">Sharpen</label>
+            <input type="range" min="-100" max="100" step="1" value="0" id="sharpen">
+            <br>
+
+            <label for="vibrance">Vibrance</label>
+            <input type="range" min="-100" max="100" step="1" value="0" id="vibrance">
+            <br>
+
+            <label for="sepia">Sepia</label>
+            <input type="range" min="-100" max="100" step="1" value="0" id="sepia">
+            <br>
+
+        </div>
+        <div class="filters_buttons">
+          <h2>Filters:</h2>
+          <div class="filter-buttons-wrapper">
+            <button id="vintage-btn">Vintage</button>
+            <button id="lomo-btn">Lomo</button>
+            <button id="clarity-btn">Clarity</button>
+            <button id="sincity-btn">Sin City</button>
+            <button id="crossprocess-btn">Cross Process</button>
+            <button id="pinhole-btn">Pinhole</button>
+            <button id="nostalgia-btn">Nostalgia</button>
+            <button id="majestic-btn">Her Majesty</button>
+          </div>
+        </div>
+
+        <div class="reset_filter_button">
+            <button id="resetFilters">Reset Filters</button>
+        </div>
     </div>
-    <div>
-        <button id="vintage-btn">Vintage</button>
-        <button id="lomo-btn">Lomo</button>
-        <button id="clarity-btn">Clarity</button>
-        <button id="sincity-btn">Sin City</button>
-        <button id="crossprocess-btn">Cross Process</button>
-        <button id="pinhole-btn">Pinhole</button>
-        <button id="nostalgia-btn">Nostalgia</button>
-        <button id="majestic-btn">Her Majesty</button>
-    </div>
-    <a href="#" class="button" id="saveImage" download="photo_enhanced">Save Image</a>
-    <a href="{{ url_for('index') }}" class="upload-another-image">Upload another image</a>
+
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/camanjs/4.1.2/caman.full.min.js"></script>
     <script src="{{ url_for('serve_static', filename='js/utils.js') }}"></script>
     <script src="{{ url_for('serve_static', filename='js/enhancer_scripts.js') }}"></script>

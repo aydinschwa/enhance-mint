@@ -142,7 +142,7 @@ pinholeButton.addEventListener("click", function() {
   const imgElement = document.querySelector("#image-container img") || document.querySelector("#image-container canvas");
   Caman(imgElement, function() {
     this.revert(false);
-    this.sinCity().render();
+    this.pinhole().render();
   });
 });
 

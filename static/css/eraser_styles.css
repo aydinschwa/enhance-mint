@@ -16,6 +16,10 @@ body {
 img {
     max-width: 30%;
 }
+
+.logo {
+    height: 112px;
+}
   
 .container {
   max-width: 1200px;
