@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Photo Enhancement</title>
-    <link rel="stylesheet" href="{{ url_for('serve_static', filename='css/homepage_styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('serve_static', filename='css/enhancer_styles.css') }}">
 </head>
 <body>
     <div class="toolbar">
@@ -35,10 +35,6 @@
     <input type="range" min="-100" max="100" step="1" value="0" id="vibrance">
     <br>
 
-    <label for="noise">Noise</label>
-    <input type="range" min="-100" max="100" step="1" value="0" id="noise">
-    <br>
-
     <label for="sepia">Sepia</label>
     <input type="range" min="-100" max="100" step="1" value="0" id="sepia">
     <br>
@@ -46,6 +42,16 @@
     </div>
     <div>
         <button id="resetFilters">Reset Filters</button>
+    </div>
+    <div>
+        <button id="vintage-btn">Vintage</button>
+        <button id="lomo-btn">Lomo</button>
+        <button id="clarity-btn">Clarity</button>
+        <button id="sincity-btn">Sin City</button>
+        <button id="crossprocess-btn">Cross Process</button>
+        <button id="pinhole-btn">Pinhole</button>
+        <button id="nostalgia-btn">Nostalgia</button>
+        <button id="majestic-btn">Her Majesty</button>
     </div>
     <a href="#" class="button" id="saveImage" download="photo_enhanced">Save Image</a>
     <a href="{{ url_for('index') }}" class="upload-another-image">Upload another image</a>
