@@ -42,9 +42,16 @@ Caman(imgElement, function () {
   }).render();
 });
 
-saveImageButton.addEventListener('click', function() {
-    saveImageButton.href = imgElement.src;
-    saveImageButton.download = 'photo_enhanced';
+saveImageButton.addEventListener("click", function () {
+  const imgElement = document.querySelector("#image-container canvas");
+  if (imgElement) {
+    const dataURL = imgElement.toDataURL("image/png");
+    saveImageButton.href = dataURL;
+    saveImageButton.download = "photo_enhanced.png";
+  } else {
+    saveImageButton.href = document.querySelector("#image-container img").src;
+    saveImageButton.download = "photo_enhanced.jpg";
+  }
 });
 
 function applyEffects() {
