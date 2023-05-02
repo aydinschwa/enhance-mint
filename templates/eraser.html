@@ -8,26 +8,33 @@
 </head>
         <body>
             <div class="toolbar">
-                <img class="logo" src="/static/images/logo.png" alt="EnhanceMint logo">
+                <img class="logo" src="/static/images/logo.png" alt="EnhanceMint logo" onclick="location.href='{{ url_for('index') }}">
             </div>
             <br>
             <center>
-            <div id="canvasContainer" data-image-url="{{ url_for('serve_image', filename=filename, device_id=device_id) }}">
-                <canvas id="imageCanvas"></canvas>
-                <canvas id="previewCanvas"></canvas>
-                <canvas id="drawCanvas"></canvas>
-                <div id="spinner" class="spinner" hidden></div>
-            </div>
+                <div id="canvasContainer" data-image-url="{{ url_for('serve_image', filename=filename, device_id=device_id) }}">
+                    <canvas id="imageCanvas"></canvas>
+                    <canvas id="previewCanvas"></canvas>
+                    <canvas id="drawCanvas"></canvas>
+                    <div id="spinner" class="spinner" hidden></div>
+                </div>
             </center>
-            <div class="controls">
+            <div class="sliders">
                 <label for="brushSize">Brush size: </label>
                 <input type="range" id="brushSize" name="brushSize" min="1" max="90" value="5">
+            </div>
+            <div class="controls">
                 <button id="undoStroke">Undo Brush Stroke</button>
                 <button id="undoErase">Undo Image Erase</button>
                 <button id="resetImage">Reset</button>
                 <button id="processImage">Process Image</button>
-                <a href="#" class="button" id="saveImage" download="photo_enhanced">Save Image</a>
-                <a href="{{ url_for('index') }}" class="upload-another-image">Upload another image</a>
+            </div>
+
+            <div class="other_buttons_div">
+                <a href="#" id="saveImage" download="photo_enhanced">
+                    <button class="other_buttons">Save Image</button>
+                </a>
+                <button class="other_buttons" onclick="location.href='{{ url_for('index') }}'">Upload a different image</button>
             </div>
 
             <script src="{{ url_for('serve_static', filename='js/utils.js') }}"></script>

@@ -18,7 +18,9 @@ img {
 }
 
 .logo {
-    height: 112px;
+    height: 130px;
+    width: 399px;
+    margin-left: 15px;
 }
   
 .container {
@@ -64,7 +66,6 @@ img {
 
 .controls {
   display: flex;
-  flex-direction: column;
   align-items: center;
   gap: 10px; /* Add space between controls */
 }
@@ -146,4 +147,113 @@ canvas {
     width: 35%;
     height: 10%;
 }
-  
+
+.sliders {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.sliders label {
+  font-size: 26px;
+  margin-bottom: 5px;
+  color: #32CD32;
+  font: Montserrat;
+}
+
+input[type=range] {
+  -webkit-appearance: none;
+  width: 40%;
+  height: 20px;
+  border-radius: 10px;
+  background: #f2f2f2;
+  outline: none;
+  padding: 0;
+  margin-bottom: 10px;
+}
+
+input[type=range]:focus {
+  outline: none;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #4CAF50;
+  cursor: pointer;
+  transition: background .15s ease-in-out;
+}
+
+input[type=range]::-webkit-slider-thumb:hover {
+  background: #2E8B57;
+}
+
+input[type=range]::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #4CAF50;
+  cursor: pointer;
+  transition: background .15s ease-in-out;
+}
+
+input[type=range]::-moz-range-thumb:hover {
+  background: #2E8B57;
+}
+
+input[type=range]::-ms-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #4CAF50;
+  cursor: pointer;
+  transition: background .15s ease-in-out;
+}
+
+input[type=range]::-ms-thumb:hover {
+  background: #2E8B57;
+}
+
+.controls {
+  position: absolute;
+  left: 50%;
+  top: 900;
+  transform: translateX(-50%);
+  width: 50%;
+}
+.controls button {
+  width: 25%;
+  height: 60px;
+  border: none;
+  border-radius: 5px;
+  background-color: #4CAF50;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.controls button:hover {
+  background-color: #3e8e41;
+}
+
+.other_buttons {
+    background-color: #1750AC
+}
+
+.other_buttons_div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 70px;
+}
+
+.other_buttons_div button {
+  width: 320px;
+  font-size: 24px;
+  margin: 10px;
+}
