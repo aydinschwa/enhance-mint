@@ -16,7 +16,7 @@
     <form id="photo-upload" action="/upload" method="POST" enctype="multipart/form-data">
         <input id="deviceId" type="hidden" name="deviceId" value="">
         <label for="photo" class="custom-file-upload">Upload Image</label>
-        <input type="file" name="photo" id="photo" accept="image/*", onchange="previewImage();">
+        <input type="file" name="photo" id="photo" accept=".pdf,.jpg,.jpeg" onchange="previewImage();">
         <div>
             <button type="submit" name="action" value="erase" class="hide">Erase</button>
             <button type="submit" name="action" value="enhance" class="hide">Enhance</button>
