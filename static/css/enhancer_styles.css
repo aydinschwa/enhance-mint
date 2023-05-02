@@ -14,8 +14,13 @@ body {
 }
 
 /* Style the logo */
+img {
+    width: 80%;
+}
+
 .logo {
     height: 130px;
+    width: 399px;
     margin-left: 15px;
 }
 
@@ -178,6 +183,8 @@ input[type=range]::-ms-thumb:hover {
   align-items: center;
   margin-top: 20px;
 }
+
+
 
 #resetFilters {
     background-color: #df2c14;

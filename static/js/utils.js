@@ -1,6 +1,6 @@
 window.appConfig = {
-    maxImageWidth: 1000,
-    maxImageHeight: 1000
+    maxImageWidth: 800,
+    maxImageHeight: 800
   };
 
 window.appConfig.getDeviceId = function getDeviceId() {
