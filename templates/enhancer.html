@@ -4,24 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Photo Enhancement</title>
-    <link rel="stylesheet" href="{{ url_for('serve_static', filename='css/homepage_styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('serve_static', filename='css/enhancer_styles.css') }}">
 </head>
 <body>
-    <h1>Photo Enhancer</h1>
+    <h1>Photo Enhancer!!</h1>
     <div>
     <img src="{{ url_for('serve_image', filename=filename) }}">
     </div>
     <div>
-    <button id="amplify_edges">Amplify Edges</button>
-    <button id="blur">Blur</button>
-    <button id="smooth">Smooth</button>
-    <button id="increase_color">Increase Color</button>
-    <button id="increase_contrast">Increase Contrast</button>
-    <button id="sharpen">Sharpen</button>
-    <button id="brighten">Brighten</button>
-    <button id="darken">Darken</button>
-    <button id="auto_enhance">Auto Enhance</button>
-    <button id="back">Undo</button>
+        <button id="amplify_edges">Amplify Edges</button>
+        <button id="blur">Blur</button>
+        <button id="smooth">Smooth</button>
+        <button id="increase_color">Increase Color</button>
+        <button id="increase_contrast">Increase Contrast</button>
+        <button id="sharpen">Sharpen</button>
+        <button id="brighten">Brighten</button>
+        <button id="darken">Darken</button>
+        <button id="auto_enhance">Auto Enhance</button>
+        <button id="back">Undo</button>
     </div>
     <a href="#" class="button" id="saveImage" download="photo_enhanced">Save Image</a>
     <a href="{{ url_for('index') }}" class="upload-another-image">Upload another image</a>
