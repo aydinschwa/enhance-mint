@@ -1,6 +1,9 @@
 /* Set background color and font family */
 body {
-    background-color: #3C3C3C; 
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
     font-family: Arial, sans-serif;
     margin: 0;
 }
@@ -39,11 +42,11 @@ input[type="file"] {
 
 .custom-file-upload {
     border: none;
-    background-color: #2D6F7C;
+    background-color: #000000;
     color: #fff;
     cursor: pointer;
     display: inline-block;
-    font-size: 16px;
+    font-size: 24px;
     font-weight: 500;
     margin-bottom: 20px;
     padding: 12px 20px;
@@ -74,4 +77,17 @@ button:hover {
 /* Hide the buttons initially */
 .hide {
     display: none;
+}
+
+/* Style the welcome text */
+.welcome-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-weight: bold;
+    font-size: 50px;
+    font-family: "Arial";
+    color: #ffffff 
 }

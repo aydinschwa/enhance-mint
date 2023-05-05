@@ -1,7 +1,7 @@
 /* Set background color and font family */
 body {
     background-color: #3C3C3C; 
-    font-family: Arial, sans-serif;
+    font-family: Arial;
     margin: 0;
 }
 
@@ -61,7 +61,7 @@ input[type="file"] {
 /* Style the buttons */
 button {
     padding: 10px 20px;
-    background-color: #34CD34;
+    background-color: #c121d3;
     border: none;
     color: #FFFFFF;
     border-radius: 5px;
@@ -71,11 +71,6 @@ button {
 
 button:hover {
     background-color: #0056b3;
-}
-
-/* Hide the buttons initially */
-.hide {
-    display: none;
 }
 
 .filters_buttons {
@@ -117,12 +112,11 @@ button:hover {
 .sliders label {
   font-size: 20px;
   margin-bottom: 5px;
-  color: #32CD32;
-  font: Montserrat;
+  color: #32aecd;
+  font-family: Arial
 }
 
 input[type=range] {
-  -webkit-appearance: none;
   width: 75%;
   height: 20px;
   border-radius: 10px;
@@ -136,55 +130,12 @@ input[type=range]:focus {
   outline: none;
 }
 
-input[type=range]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: #4CAF50;
-  cursor: pointer;
-  transition: background .15s ease-in-out;
-}
-
-input[type=range]::-webkit-slider-thumb:hover {
-  background: #2E8B57;
-}
-
-input[type=range]::-moz-range-thumb {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: #4CAF50;
-  cursor: pointer;
-  transition: background .15s ease-in-out;
-}
-
-input[type=range]::-moz-range-thumb:hover {
-  background: #2E8B57;
-}
-
-input[type=range]::-ms-thumb {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: #4CAF50;
-  cursor: pointer;
-  transition: background .15s ease-in-out;
-}
-
-input[type=range]::-ms-thumb:hover {
-  background: #2E8B57;
-}
-
 #image-container {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 20px;
 }
-
-
 
 #resetFilters {
     background-color: #df2c14;

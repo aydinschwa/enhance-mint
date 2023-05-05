@@ -4,18 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EnhanceMint</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('serve_static', filename='images/favicon.png') }}">
     <link rel="stylesheet" href="{{ url_for('serve_static', filename='css/homepage_styles.css') }}">
     <script src="{{ url_for('serve_static', filename='js/utils.js') }}"></script>
     <script src="{{ url_for('serve_static', filename='js/homepage_scripts.js') }}"></script>
+    <style>
+        body {
+            background-image: url("{{ url_for('serve_static', filename='images/background.jpeg') }}");
+        }
+    </style>
 </head>
 <body>
     <div class="toolbar">
         <img class="logo" src="static/images/logo.png" alt="EnhanceMint logo">
     </div>
+    <div class="welcome-text">
+        <p> Upgrade your photos using the latest AI technology.</p>
+        <p> Try now for free.</p>
+    </div>
     <div id="image-placeholder" style="text-align: center;"></div>
     <form id="photo-upload" action="/upload" method="POST" enctype="multipart/form-data">
         <input id="deviceId" type="hidden" name="deviceId" value="">
-        <label for="photo" class="custom-file-upload">Upload Image</label>
+        <label for="photo" class="custom-file-upload">Upload</label>
         <input type="file" name="photo" id="photo" accept=".png,.jpg,.jpeg" onchange="previewImage();">
         <div>
             <button type="submit" name="action" value="erase" class="hide">Erase</button>

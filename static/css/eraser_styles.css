@@ -14,13 +14,11 @@ body {
 
 /* Style the logo */
 img {
-    max-width: 30%;
+  max-width: 30%;
 }
 
 .logo {
-    height: 130px;
-    width: 399px;
-    margin-left: 15px;
+  height: 112px;
 }
   
 .container {
@@ -87,7 +85,7 @@ canvas {
   button {
     display: inline-block;
     padding: 10px 20px;
-    background-color: #007bff;
+    background-color: #c121d3;
     color: #fff;
     font-size: 1rem;
     border-radius: 5px;
@@ -159,12 +157,10 @@ canvas {
 .sliders label {
   font-size: 26px;
   margin-bottom: 5px;
-  color: #32CD32;
-  font: Montserrat;
+  color: #c121d3;
 }
 
 input[type=range] {
-  -webkit-appearance: none;
   width: 40%;
   height: 20px;
   border-radius: 10px;
@@ -176,47 +172,6 @@ input[type=range] {
 
 input[type=range]:focus {
   outline: none;
-}
-
-input[type=range]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: #4CAF50;
-  cursor: pointer;
-  transition: background .15s ease-in-out;
-}
-
-input[type=range]::-webkit-slider-thumb:hover {
-  background: #2E8B57;
-}
-
-input[type=range]::-moz-range-thumb {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: #4CAF50;
-  cursor: pointer;
-  transition: background .15s ease-in-out;
-}
-
-input[type=range]::-moz-range-thumb:hover {
-  background: #2E8B57;
-}
-
-input[type=range]::-ms-thumb {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: #4CAF50;
-  cursor: pointer;
-  transition: background .15s ease-in-out;
-}
-
-input[type=range]::-ms-thumb:hover {
-  background: #2E8B57;
 }
 
 .controls {
@@ -231,14 +186,14 @@ input[type=range]::-ms-thumb:hover {
   height: 60px;
   border: none;
   border-radius: 5px;
-  background-color: #4CAF50;
+  background-color: #c121d3;
   color: white;
   font-size: 20px;
   cursor: pointer;
 }
 
 .controls button:hover {
-  background-color: #3e8e41;
+  background-color: #c95ad5;;
 }
 
 .other_buttons {

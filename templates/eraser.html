@@ -8,7 +8,7 @@
 </head>
         <body>
             <div class="toolbar">
-                <img class="logo" src="/static/images/logo.png" alt="EnhanceMint logo" onclick="location.href='{{ url_for('index') }}">
+            <img class="logo" style="cursor: pointer;" src="/static/images/logo.png" alt="EnhanceMint logo" onclick="location.href='{{ url_for('index') }}'">
             </div>
             <br>
             <center>
@@ -20,7 +20,7 @@
                 </div>
             </center>
             <div class="sliders">
-                <label for="brushSize">Brush size: </label>
+                <label for="brushSize">Brush Size </label>
                 <input type="range" id="brushSize" name="brushSize" min="1" max="90" value="5">
             </div>
             <div class="controls">
