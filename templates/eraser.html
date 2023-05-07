@@ -25,12 +25,25 @@
                 <input type="range" id="brushSize" name="brushSize" min="1" max="90" value="5">
             </div>
             <div class="controls">
+                <button id="processImage">Process Image</button>
                 <button id="undoStroke">Undo Brush Stroke</button>
                 <button id="undoErase">Undo Image Erase</button>
                 <button id="resetImage">Reset</button>
-                <button id="processImage">Process Image</button>
             </div>
+            <div class="AI_Tools">
+                <h2>Other AI Tools</h2>
+                <div class="deblur_image">
+                    <button id="deblur">Deblur</button>
+                </div>
 
+                <div class="denoise_image">
+                    <button id="denoise">Denoise</button>
+                </div>
+
+                <div class="upresolve_image">
+                    <button id="upresolve">Increase Resolution</button>
+                </div>
+            </div>
             <div class="other_buttons_div">
                 <a href="#" id="saveImage" download="photo_enhanced">
                     <button class="other_buttons">Save Image</button>
@@ -38,17 +51,6 @@
                 <button class="other_buttons" onclick="location.href='{{ url_for('index') }}'">Upload a different image</button>
             </div>
 
-            <div class="deblur_image">
-                <button id="deblur">Deblur</button>
-            </div>
-        
-            <div class="denoise_image">
-                <button id="denoise">Denoise</button>
-            </div>
-
-            <div class="upresolve_image">
-                <button id="upresolve">Increase Resolution</button>
-            </div>
 
             <script src="{{ url_for('serve_static', filename='js/utils.js') }}"></script>
             <script src="{{ url_for('serve_static', filename='js/eraser_scripts.js') }}"></script>

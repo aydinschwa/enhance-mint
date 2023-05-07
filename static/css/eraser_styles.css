@@ -181,6 +181,7 @@ input[type=range]:focus {
   transform: translateX(-50%);
   width: 50%;
 }
+
 .controls button {
   width: 25%;
   height: 60px;
@@ -190,6 +191,10 @@ input[type=range]:focus {
   color: white;
   font-size: 20px;
   cursor: pointer;
+}
+
+#processImage {
+  background-color: green;
 }
 
 .controls button:hover {
@@ -204,11 +209,41 @@ input[type=range]:focus {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 70px;
 }
 
 .other_buttons_div button {
   width: 320px;
   font-size: 24px;
   margin: 10px;
+}
+
+#resetImage {
+    background-color: red
+}
+
+.AI_Tools {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 70px;
+}
+
+.AI_Tools h2 {
+  flex-basis: 100%;
+  text-align: center;
+  margin-bottom: 10px;
+  color: white;
+}
+
+.AI_Tools button {
+  width: 250px;
+  height: 60px;
+  margin: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #c121d3;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
 }
