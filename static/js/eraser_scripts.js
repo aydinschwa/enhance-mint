@@ -18,6 +18,9 @@ const g = 102;
 const b = 102; 
 const brushColor = `rgb(${r}, ${g}, ${b})`;
 const deviceId = getDeviceId();
+const deblurButton = document.getElementById("deblur");
+const denoiseButton = document.getElementById("denoise");
+const upresolveButton = document.getElementById("upresolve");
 
 const canvasContainer = document.getElementById("canvasContainer");
 const imageUrl = canvasContainer.getAttribute("data-image-url");
@@ -246,6 +249,7 @@ processImageButton.addEventListener("click", async () => {
     const posData = new URLSearchParams();
     posData.append("photoIndex", photoIndex);
     posData.append("deviceId", deviceId);
+    posData.append("enhancementType", "erase");
     const response = await fetch("/process", {
       method: "POST",
       headers: {
@@ -290,3 +294,123 @@ function drawBrushPreview(x, y, size) {
 function clearBrushPreview() {
   previewCtx.clearRect(0, 0, previewCanvas.width, previewCanvas.height);
 }
+
+deblurButton.addEventListener("click", async () => {
+  toggleSpinner(true);
+  try {
+    photoIndex += 1;
+    const posData = new URLSearchParams();
+    posData.append("photoIndex", photoIndex);
+    posData.append("deviceId", deviceId);
+    posData.append("enhancementType", "deblur")
+    const response = await fetch("/process", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: posData
+    });
+
+    if (!response.ok) {
+      throw new Error(`Request failed with status ${response.status}`);
+    }
+
+    const data = await response.json();
+    const outputImageB64 = data.outputImageB64;
+
+    // Clear the draw canvas
+    drawCtx.clearRect(0, 0, drawCanvas.width, drawCanvas.height);
+    paths = []; // Reset the stored paths
+
+    // Update the image source with the new image
+    image.src = "data:image/png;base64," + outputImageB64;
+
+    toggleSpinner(false);
+
+  } catch (error) {
+    photoIndex -= 1;
+    console.error("Error processing image:", error);
+    toggleSpinner(false);
+  }
+  
+});
+
+denoiseButton.addEventListener("click", async () => {
+  toggleSpinner(true);
+  try {
+    photoIndex += 1;
+    const posData = new URLSearchParams();
+    posData.append("photoIndex", photoIndex);
+    posData.append("deviceId", deviceId);
+    posData.append("enhancementType", "denoise")
+    const response = await fetch("/process", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: posData
+    });
+
+    if (!response.ok) {
+      throw new Error(`Request failed with status ${response.status}`);
+    }
+
+    const data = await response.json();
+    const outputImageB64 = data.outputImageB64;
+
+    // Clear the draw canvas
+    drawCtx.clearRect(0, 0, drawCanvas.width, drawCanvas.height);
+    paths = []; // Reset the stored paths
+
+    // Update the image source with the new image
+    image.src = "data:image/png;base64," + outputImageB64;
+
+    toggleSpinner(false);
+
+  } catch (error) {
+    photoIndex -= 1;
+    console.error("Error processing image:", error);
+    toggleSpinner(false);
+  }
+  
+});
+
+upresolveButton.addEventListener("click", async () => {
+  toggleSpinner(true);
+  try {
+    photoIndex += 1;
+    const posData = new URLSearchParams();
+    posData.append("photoIndex", photoIndex);
+    posData.append("deviceId", deviceId);
+    posData.append("enhancementType", "upresolve")
+    const response = await fetch("/process", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: posData
+    });
+
+    if (!response.ok) {
+      throw new Error(`Request failed with status ${response.status}`);
+    }
+
+    const data = await response.json();
+    const outputImageB64 = data.outputImageB64;
+
+    // Clear the draw canvas
+    drawCtx.clearRect(0, 0, drawCanvas.width, drawCanvas.height);
+    paths = []; // Reset the stored paths
+
+    // Update the image source with the new image
+    image.src = "data:image/png;base64," + outputImageB64;
+
+    toggleSpinner(false);
+
+  } catch (error) {
+    photoIndex -= 1;
+    console.error("Error processing image:", error);
+    toggleSpinner(false);
+  }
+  
+});

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Uploaded Image</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('serve_static', filename='images/favicon.png') }}">
     <link rel="stylesheet" href="{{ url_for('serve_static', filename='css/eraser_styles.css') }}">
 </head>
         <body>
@@ -35,6 +36,18 @@
                     <button class="other_buttons">Save Image</button>
                 </a>
                 <button class="other_buttons" onclick="location.href='{{ url_for('index') }}'">Upload a different image</button>
+            </div>
+
+            <div class="deblur_image">
+                <button id="deblur">Deblur</button>
+            </div>
+        
+            <div class="denoise_image">
+                <button id="denoise">Denoise</button>
+            </div>
+
+            <div class="upresolve_image">
+                <button id="upresolve">Increase Resolution</button>
             </div>
 
             <script src="{{ url_for('serve_static', filename='js/utils.js') }}"></script>

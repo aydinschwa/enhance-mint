@@ -112,15 +112,29 @@ def export():
 def process():
     photo_index = request.form["photoIndex"]
     device_id = request.form["deviceId"]
+    enhancement_type = request.form["enhancementType"]
     
-    image_name = f"original_image_mask{photo_index}.png"
-    image_path = f"{app.config['DATA_FOLDER']}/{device_id}/{app.config['OUTPUT_FOLDER']}/{image_name}"
-    export_path = f"{app.config['DATA_FOLDER']}/{device_id}/{app.config['EXPORT_FOLDER']}"
+    if enhancement_type == "erase":
+        image_name = f"original_image_mask{photo_index}.png"
+        image_path = f"{app.config['DATA_FOLDER']}/{device_id}/{app.config['OUTPUT_FOLDER']}/{image_name}"
+        export_path = f"{app.config['DATA_FOLDER']}/{device_id}/{app.config['EXPORT_FOLDER']}"
+        make_prediction(model, predict_config, image_path, export_path) 
 
-    make_prediction(model, predict_config, image_path, export_path) 
+        with open(image_path, "rb") as f:
+            image_data = f.read()
 
-    with open(image_path, "rb") as f:
-        image_data = f.read()
+    elif enhancement_type in ("deblur", "denoise", "upresolve"):
+        image_name = f"original_image_mask{photo_index}.png"
+        prev_image_name = f"original_image_mask{int(photo_index) - 1}.png"
+        image_path = f"{app.config['DATA_FOLDER']}/{device_id}/{app.config['OUTPUT_FOLDER']}/{prev_image_name}"
+        output_path = f"{app.config['DATA_FOLDER']}/{device_id}/{app.config['OUTPUT_FOLDER']}/{image_name}"
+        os.system(f"scripts/run_nafnet.sh {image_path} {output_path} {enhancement_type}") 
+
+        with open(output_path, "rb") as f:
+            image_data = f.read()
+
+    else:
+        raise Exception(f"Invalid ML model name: f{enhancement_type}")
 
     image_b64 = base64.b64encode(image_data).decode("utf-8")
 
