@@ -2,6 +2,10 @@
 
 EnhanceMint is an AI-powered photo editor that offers advanced features to help you get the most out of your images. With a user-friendly in-browser interface, you can deblur, erase objects, increase image resolution, and apply various effects with ease. The web application is built using Flask, and leverages cutting-edge AI models to deliver stunning results.
 
+<p align="center">
+  <img src="static/images/demo.gif"/>
+</p>
+
 ## Features
 
 - In-browser photo editor
@@ -12,7 +16,7 @@ EnhanceMint is an AI-powered photo editor that offers advanced features to help 
 
 ## How to use
 
-1. Visit the EnhanceMint homepage(enhance-mint.com). Due to the cost of hosting the site, it may not be running when you try it.
+1. Visit the EnhanceMint homepage (enhance-mint.com). Due to the cost of hosting the site, it may not be running when you try it.
 2. Click the "Upload" button and choose an image file (.png, .jpg, or .jpeg) from your device.
 3. After uploading, you will be redirected to the editing interface.
 4. Use the available AI tools (deblur, erase, increase resolution) to enhance your image.
@@ -27,3 +31,8 @@ EnhanceMint is an AI-powered photo editor that offers advanced features to help 
 2. Install the necessary packages with `pip install -r requirements.txt`.
 3. Run the app with `python app.py`.
 4. Visit `http://localhost:80` in your browser to access the application.
+
+## Models
+[LaMa](https://github.com/advimman/lama): Object eraser
+
+[NAFNet](https://github.com/megvii-research/NAFNet): Image deblur, denoise, resolution increaser
