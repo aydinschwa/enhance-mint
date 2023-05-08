@@ -1,64 +1,29 @@
-# EnhanceMint
+# EnhanceMint - AI-Enhanced Photo Editor
 
-EnhanceMint is an AI-powered web application that aims to make high-quality photo enhancement features available to the general public. Currently the app allows users to erase unwanted objects or enhance the quality of their images.
+EnhanceMint is an AI-powered photo editor that offers advanced features to help you get the most out of your images. With a user-friendly in-browser interface, you can deblur, erase objects, increase image resolution, and apply various effects with ease. The web application is built using Flask, and leverages cutting-edge AI models to deliver stunning results.
 
 ## Features
 
-- Upload an image and apply background erasing
-- Enhance the image using different enhancement options
-- Undo and reset transformations
-- Save the processed image
+- In-browser photo editor
+- AI-powered image deblurring
+- AI-powered object erasing
+- AI-powered image resolution increasing
+- Support for .png, .jpg, and .jpeg file formats
 
-## Installation
+## How to use
 
-0. Ensure you have git-lfs enabled:
+1. Visit the [EnhanceMint homepage](enhance-mint.com). Due to the cost of hosting the site, it may not be running when you try it.
+2. Click the "Upload" button and choose an image file (.png, .jpg, or .jpeg) from your device.
+3. After uploading, you will be redirected to the editing interface.
+4. Use the available AI tools (deblur, erase, increase resolution) to enhance your image.
+5. Adjust the image properties (brightness, saturation, exposure, etc.) using the sliders.
+6. Apply predefined filters to achieve specific effects.
+7. When you're satisfied with the result, click "Save Image" to download the enhanced image.
 
-We intend to host the model in the cloud, but haven't implemented this yet. In the meantime, we're hosting the model using git Large File Storage. If you don't already have git-lfs, please follow the instructions and set it up [here](https://git-lfs.com/).
+## Running the project locally
 
-1. Clone the repository:
-
-```bash
-git clone https://github.com/aydinschwa/enhance-mint
-```
-
-2. Change into the project directory:
-
-```bash
-cd EnhanceMINT
-```
-
-3. Install the required Python packages:
-
-```bash
-pip install -r requirements.txt
-```
-
-4. Run the application:
-
-```bash
-python app.py
-```
-
-The application will start running on `http://127.0.0.1:5000/` by default. Open the URL in your web browser to access the EnhanceMINT web application.
-
-## Usage
-
-1. Open the application in your web browser.
-2. Click "Upload Image" and choose an image from your computer.
-3. Select either the "Erase" or "Enhance" option to apply the desired transformation.
-4. Interact with the image using the available controls, such as brush size, undo, and reset.
-5. When you're satisfied with the result, click "Save Image" to download the processed image.
-6. To process another image, click "Upload another image."
-
-## File Structure
-
-- `app.py`: The main Flask application script.
-- `index.html`: The homepage HTML template.
-- `eraser.html`: The eraser page HTML template.
-- `static/`: Contains static files such as CSS and JavaScript files.
-- `uploads/`: The directory where uploaded images are stored.
-- `exported/`: The directory where processed images are stored.
-- `output/`: The directory where intermediate output images are stored.
-- `enhancer.py`: Contains the `Picture` class for image enhancement.
-- `models/`: Contains the LAMA model for image processing.
-- `scripts/`: Contains the shell script for running the model.
+1. Clone the repository.
+2. Create a new virtual environment for the project with `virtualenv venv`.
+2. Install the necessary packages with `pip install -r requirements.txt`.
+3. Run the app with `python app.py`.
+4. Visit `http://localhost:80` in your browser to access the application.
