@@ -12,7 +12,7 @@ EnhanceMint is an AI-powered photo editor that offers advanced features to help 
 
 ## How to use
 
-1. Visit the [EnhanceMint homepage](enhance-mint.com). Due to the cost of hosting the site, it may not be running when you try it.
+1. Visit the EnhanceMint homepage(enhance-mint.com). Due to the cost of hosting the site, it may not be running when you try it.
 2. Click the "Upload" button and choose an image file (.png, .jpg, or .jpeg) from your device.
 3. After uploading, you will be redirected to the editing interface.
 4. Use the available AI tools (deblur, erase, increase resolution) to enhance your image.
