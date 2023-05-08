@@ -35,7 +35,7 @@ itsdangerous
 Jinja2
 joblib
 kiwisolver
-kornia
+kornia==0.5.0
 lazy_loader
 Markdown
 MarkupSafe
