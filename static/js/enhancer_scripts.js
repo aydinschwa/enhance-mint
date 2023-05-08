@@ -1,7 +1,6 @@
 const maxImageWidth = window.appConfig.maxImageWidth;
 const maxImageHeight = window.appConfig.maxImageHeight;
-const imgElement = document.querySelector("#image-container img");
-const imageUrl = imgElement.getAttribute("src");
+const imgElement = document.querySelector("#image-container canvas");
 const saveImageButton = document.getElementById("saveImage");
 const brightnessSlider = document.getElementById("brightness");
 const saturationSlider = document.getElementById("saturation");
@@ -18,32 +17,42 @@ const crossProcessButton = document.getElementById("crossprocess-btn");
 const pinholeButton = document.getElementById("pinhole-btn");
 const nostalgiaButton = document.getElementById("nostalgia-btn");
 const herMajestyButton = document.getElementById("majestic-btn");
+const canvas = document.getElementById("image-canvas");
+const ctx = canvas.getContext("2d");
 
 
-// resize image if it's larger than maxWidth, maxHeight 
-const imgRatio = imgElement.width / imgElement.height;
-let newWidth = imgElement.width;
-let newHeight = imgElement.height;
+const img = new Image();
+img.src = window.imageUrl;
+img.onload = function() {
+  
+  // resize image if it's too large
+  const imgRatio = img.width / img.height;
+  let newWidth = img.width;
+  let newHeight = img.height;
 
-if (imgElement.width > maxImageWidth) {
-newWidth = maxImageWidth;
-newHeight = newWidth / imgRatio;
-}
+  if (img.width > maxImageWidth) {
+    newWidth = maxImageWidth;
+    newHeight = newWidth / imgRatio;
+  }
 
-if (newHeight > maxImageHeight) {
-newHeight = maxImageHeight;
-newWidth = newHeight * imgRatio;
-}
+  if (newHeight > maxImageHeight) {
+    newHeight = maxImageHeight;
+    newWidth = newHeight * imgRatio;
+  }
 
-Caman(imgElement, function () {
-  this.resize({
-    width: newWidth,
-    height: newHeight
-  }).render();
-});
+  canvas.width = newWidth;
+  canvas.height = newHeight;
+  ctx.drawImage(img, 0, 0, newWidth, newHeight);
+
+  Caman(canvas, function() {
+    this.resize({
+      width: newWidth,
+      height: newHeight
+    }).render();
+  });
+};
 
 saveImageButton.addEventListener("click", function () {
-  const imgElement = document.querySelector("#image-container canvas");
   if (imgElement) {
     const dataURL = imgElement.toDataURL("image/png");
     saveImageButton.href = dataURL;
@@ -56,7 +65,6 @@ saveImageButton.addEventListener("click", function () {
 
 function applyEffects() {
 
-    const imgElement = document.querySelector("#image-container img") || document.querySelector("#image-container canvas");
     Caman(imgElement, function () {
       this.revert(false);
       this.brightness(brightnessSlider.value);
@@ -85,7 +93,6 @@ resetButton.addEventListener("click", () => {
     sharpenSlider.value = 0;
     vibranceSlider.value = 0;
     sepiaSlider.value = 0;
-    const imgElement = document.querySelector("#image-container img") || document.querySelector("#image-container canvas");
     Caman(imgElement, function () {
       this.revert(false);
       this.brightness(brightnessSlider.value);
@@ -99,7 +106,6 @@ resetButton.addEventListener("click", () => {
 })
 
 vintageButton.addEventListener("click", function() {
-  const imgElement = document.querySelector("#image-container img") || document.querySelector("#image-container canvas");
   Caman(imgElement, function() {
     this.revert(false);
     this.vintage().render();
@@ -107,7 +113,6 @@ vintageButton.addEventListener("click", function() {
 });
 
 lomoButton.addEventListener("click", function() {
-  const imgElement = document.querySelector("#image-container img") || document.querySelector("#image-container canvas");
   Caman(imgElement, function() {
     this.revert(false);
     this.lomo().render();
@@ -115,7 +120,6 @@ lomoButton.addEventListener("click", function() {
 });
 
 clarityButton.addEventListener("click", function() {
-  const imgElement = document.querySelector("#image-container img") || document.querySelector("#image-container canvas");
   Caman(imgElement, function() {
     this.revert(false);
     this.clarity().render();
@@ -123,7 +127,6 @@ clarityButton.addEventListener("click", function() {
 });
 
 sinCityButton.addEventListener("click", function() {
-  const imgElement = document.querySelector("#image-container img") || document.querySelector("#image-container canvas");
   Caman(imgElement, function() {
     this.revert(false);
     this.sinCity().render();
@@ -131,7 +134,6 @@ sinCityButton.addEventListener("click", function() {
 });
 
 crossProcessButton.addEventListener("click", function() {
-  const imgElement = document.querySelector("#image-container img") || document.querySelector("#image-container canvas");
   Caman(imgElement, function() {
     this.revert(false);
     this.crossProcess().render();
@@ -139,7 +141,6 @@ crossProcessButton.addEventListener("click", function() {
 });
 
 pinholeButton.addEventListener("click", function() {
-  const imgElement = document.querySelector("#image-container img") || document.querySelector("#image-container canvas");
   Caman(imgElement, function() {
     this.revert(false);
     this.pinhole().render();
@@ -147,7 +148,6 @@ pinholeButton.addEventListener("click", function() {
 });
 
 nostalgiaButton.addEventListener("click", function() {
-  const imgElement = document.querySelector("#image-container img") || document.querySelector("#image-container canvas");
   Caman(imgElement, function() {
     this.revert(false);
     this.nostalgia().render();
@@ -155,7 +155,6 @@ nostalgiaButton.addEventListener("click", function() {
 });
 
 herMajestyButton.addEventListener("click", function() {
-  const imgElement = document.querySelector("#image-container img") || document.querySelector("#image-container canvas");
   Caman(imgElement, function() {
     this.revert(false);
     this.herMajesty().render();

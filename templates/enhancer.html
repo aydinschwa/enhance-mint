@@ -13,7 +13,7 @@
     </div>
     <div class="left-column">
         <div id="image-container">
-            <img src="{{ url_for('serve_image', filename=filename, device_id=device_id) }}">
+            <canvas id="image-canvas"></canvas>
         </div>
         <div class="other_buttons_div">
             <a href="#" id="saveImage" download="photo_enhanced">
@@ -69,7 +69,9 @@
         </div>
     </div>
 
-
+    <script>
+        window.imageUrl = "{{ url_for('serve_image', filename=filename, device_id=device_id) }}";
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/camanjs/4.1.2/caman.full.min.js"></script>
     <script src="{{ url_for('serve_static', filename='js/utils.js') }}"></script>
     <script src="{{ url_for('serve_static', filename='js/enhancer_scripts.js') }}"></script>
