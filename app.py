@@ -13,26 +13,6 @@ app.config["EXPORT_FOLDER"] = "exported"
 app.config["OUTPUT_FOLDER"] = "output"
 ALLOWED_EXTENSIONS = set(["png", "jpg", "jpeg"])
 
-# default to cpu unless cuda is set with command line 
-if len(sys.argv) > 1:
-    device = sys.argv[1]
-else:
-    device = "cpu"
-
-# Clear user data on restart of app 
-# doesn't make sense right now since we're constantly stopping the server
-# for root, dirs, files in os.walk(app.config["DATA_FOLDER"]):
-#     for file in files:
-#         if file != ".gitignore":
-#             os.remove(os.path.join(root, file))
-#     for dir in dirs:
-#         rmtree(os.path.join(root, dir))
-
-RUN_MODEL = True
-# set model as global variable
-if RUN_MODEL:
-    from models.lama.lama import get_model_instance, make_prediction
-    model, predict_config = get_model_instance(compute_device=device)
 
 @app.route("/static/<path:filename>")
 def serve_static(filename):
@@ -116,11 +96,11 @@ def process():
     
     if enhancement_type == "erase":
         image_name = f"original_image_mask{photo_index}.png"
-        image_path = f"{app.config['DATA_FOLDER']}/{device_id}/{app.config['OUTPUT_FOLDER']}/{image_name}"
         export_path = f"{app.config['DATA_FOLDER']}/{device_id}/{app.config['EXPORT_FOLDER']}"
-        make_prediction(model, predict_config, image_path, export_path) 
+        output_path = f"{app.config['DATA_FOLDER']}/{device_id}/{app.config['OUTPUT_FOLDER']}/{image_name}"
+        os.system(f"scripts/run_lama.sh {export_path} {output_path}") 
 
-        with open(image_path, "rb") as f:
+        with open(output_path, "rb") as f:
             image_data = f.read()
 
     elif enhancement_type in ("deblur", "denoise", "upresolve"):

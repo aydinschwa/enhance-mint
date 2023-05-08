@@ -1,6 +1,6 @@
 venv
 uploads
 __pycache__
-models/lama/outputs/*
+models/*
 .DS_Store
 .vercel

@@ -8,11 +8,13 @@ MODEL=$3
 # clone NAFNet if it's not already in models
 if [ ! -d "models/NAFNet" ]; then
     echo "Cloning NAFNet..."
+    source venv/bin/activate
     cd models
     git clone https://github.com/megvii-research/NAFNet
-    cp ../model_setup/model.py NAFNet
-    cp ../model_setup/setup.py NAFNet
-    cp ../model_setup/base_model.py NAFNet/basicsr/models/base_model.py
+    # change files of NAFNet so that it works on my machine
+    cp ../model_setup/NAFNet/model.py NAFNet
+    cp ../model_setup/NAFNet/setup.py NAFNet
+    cp ../model_setup/NAFNet/base_model.py NAFNet/basicsr/models/base_model.py
     cd NAFNet
     python3 setup.py develop --no_cuda_ext
 
@@ -34,7 +36,7 @@ fi
 # creates virtual environment if one doesn't already exist. I really need to use docker...
 if [ ! -d "venv" ]; then
     echo "Creating virtual environment 'venv'"
-    python -m venv venv
+    python -m virtualenv venv
     source venv/bin/activate
     pip install -r requirements.txt
     pip install torch
